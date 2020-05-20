@@ -1,0 +1,22 @@
+### ---------------------------------------------------------------------------
+### FIND PREFIXES AT THE SITE
+### ---------------------------------------------------------------------------
+- name: "Site prefixes from Netbox"
+  uri:
+    url: "{{ netbox.baseurl }}/ipam/prefixes/?site={{ site_name }}"
+    method: GET
+    return_content: yes
+    status_code: "200"
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Token {{ netbox.apitoken }}"
+    force_basic_auth: yes
+  register: site_prefixes
+
+- name: "setting site_prefixes variable"
+  set_fact:
+    site_prefixes: "{{ site_prefixes.json.results }}"
+
+- name: "cleaning up prefixes into dictionary values"
+  set_fact:
+    site_prefixes: "{{ site_prefixes | cleanup_site_prefixes }}"

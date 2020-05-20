@@ -1,0 +1,8 @@
+---
+mist:
+  rf_template_id: "55da0fee-39a1-4306-a234-29e64324f8a6"
+  timezone: "America/Chicago"
+  lat: "29.78266"
+  long: "-95.637837"
+  address: "{{ site_data.street_address }}, {{ site_data.city }}, {{ site_data.state }}, {{ site_data.country }}"
+  country_code: "{{ site_data.country }}"

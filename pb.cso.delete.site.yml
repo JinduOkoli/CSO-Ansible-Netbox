@@ -1,0 +1,55 @@
+---
+  ### ---------------------------------------------------------------------------
+  ### CREATE AN SDWAN SITE IN CSO
+  ### ---------------------------------------------------------------------------
+  - hosts: localhost
+    connection: local
+    gather_facts: False
+    become: False
+    vars_files:
+      - "cso/variables/cso_auth.yml"
+    tasks:
+      ### ---------------------------------------------------------------------------
+      ### VALIDATE THAT ANSIBLE CONTROL MACHINE IS RUNNING A RECENT ANSIBLE VERSION
+      ### ---------------------------------------------------------------------------
+      - name: "Check ansible version >=2.7.8"
+        assert:
+          msg: "Ansible must be v2.7.8 or higher"
+          that:
+            - ansible_version.string is version("2.7.8", ">=")
+
+      ### ---------------------------------------------------------------------------
+      ### BUILD AUTHENTICATION PAYLOAD FOR CSO
+      ### ---------------------------------------------------------------------------
+      - name: "Create a JSON payload with username and password for our auth task"
+        template:
+          src: cso/templates/cso_auth.j2
+          dest: cso/payload/auth.json
+          mode: 0640
+
+      ### ---------------------------------------------------------------------------
+      ### RECEIVE AUTH TOKEN FROM CSO
+      ### ---------------------------------------------------------------------------
+      - name: "Login to CSO and retrieve AUTH token"
+        uri:
+          url: "{{ cso.baseurl }}/v3/auth/tokens"
+          method: POST
+          body: "{{ lookup('file','cso/payload/auth.json') }}"
+          return_content: yes
+          status_code: 201
+          body_format: json
+        register: login
+
+      - name: "Setting the AUTH token based on the headers received from the previous step"
+        set_fact:
+          token: "{{ login.x_subject_token }}"
+
+      ### ---------------------------------------------------------------------------
+      ### CREATE THE SITE
+      ### ---------------------------------------------------------------------------
+      - name: Create a SD-WAN site
+        cso_site:
+          site_name: "redtail"
+          type: sdwan
+          state: absent
+          token: "{{ token }}"

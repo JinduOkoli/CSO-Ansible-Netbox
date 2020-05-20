@@ -1,0 +1,22 @@
+### ---------------------------------------------------------------------------
+### FIND DEVICES AT THE SITE
+### ---------------------------------------------------------------------------
+- name: "Device data from Netbox"
+  uri:
+    url: "{{ netbox.baseurl }}/dcim/devices/?site={{ site_name }}"
+    method: GET
+    return_content: yes
+    status_code: "200"
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Token {{ netbox.apitoken }}"
+    force_basic_auth: yes
+  register: site_devices
+
+- name: "setting site_devices variable"
+  set_fact:
+    site_devices: "{{ site_devices.json.results }}"
+
+- name: "cleaning up site data into dictionary values"
+  set_fact:
+    site_devices: "{{ site_devices | cleanup_device_data }}"

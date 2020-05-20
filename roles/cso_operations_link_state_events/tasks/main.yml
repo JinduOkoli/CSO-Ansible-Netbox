@@ -1,0 +1,112 @@
+### ---------------------------------------------------------------------------
+### BUILD AUTHENTICATION PAYLOAD FOR CSO
+### ---------------------------------------------------------------------------
+- name: "Create a JSON payload with username and password for our auth task"
+  template:
+    src: cso_auth.j2
+    dest: "{{ cso_auth_config }}"
+    mode: 0640
+  run_once: True
+
+### ---------------------------------------------------------------------------
+### RECEIVE AUTH TOKEN FROM CSO
+### ---------------------------------------------------------------------------
+- name: "Login to CSO and retrieve AUTH token"
+  uri:
+    url: "{{ cso.baseurl }}/v3/auth/tokens"
+    method: POST
+    body: "{{ cso_auth_config }}"
+    return_content: yes
+    status_code: "201"
+    body_format: json
+  register: login
+  run_once: True
+
+- name: "Setting the AUTH token based on the headers received"
+  set_fact:
+    token: "{{ login.x_subject_token }}"
+  run_once: True
+
+### ---------------------------------------------------------------------------
+### BUILD PAYLOAD FOR SITE
+### ---------------------------------------------------------------------------
+- name: "Create a JSON payload with payload details"
+  template:
+    src: cso_operations_link_state_events.j2
+    dest: /var/tmp/cso_operations_link_state_events.json
+    mode: 0640
+
+### ---------------------------------------------------------------------------
+### Query CSO for link state failures
+### ---------------------------------------------------------------------------
+- name: QUERY CSO FOR LINK STATE FAILURES
+  uri:
+    url: "{{ cso.baseurl }}/fmpm-provider/sla_event/_filter"
+    method: POST
+    return_content: yes
+    status_code: "200"
+    headers:
+      Content-Type: "application/json"
+      x-auth-token: "{{ token }}"
+    body: "{{ lookup('file','/var/tmp/cso_operations_link_state_events.json') }}"
+    force_basic_auth: yes
+    body_format: json
+  register: alerts_link_state
+  run_once: True
+
+- name: "Setting the link state event"
+  set_fact:
+    alerts_link_state: "{{ alerts_link_state.content }}"
+  run_once: True
+
+### ---------------------------------------------------------------------------
+### UPDATE TEAM IN SLACK
+### ---------------------------------------------------------------------------
+- name: "Create a JSON payload with link state events"
+  template:
+    src: cso_operations_slack_message.j2
+    dest: /var/tmp/cso_operations_slack_message.json
+    mode: 0640
+  run_once: True
+
+- name: "send an update message to team on Slack"
+  uri:
+    url: "{{ slack.baseurl }}"
+    method: POST
+    return_content: yes
+    status_code: "200"
+    headers:
+      Content-Type: "application/json"
+    body: "{{ lookup('file','/var/tmp/cso_operations_slack_message.json') }}"
+    force_basic_auth: yes
+    body_format: json
+  register: slack_message
+  run_once: True
+
+### ---------------------------------------------------------------------------
+### SERVICENOW
+### ---------------------------------------------------------------------------
+- name: "Create a JSON payload with link state events"
+  template:
+    src: cso_operations_snow_message.j2
+    dest: /var/tmp/cso_operations_snow_message.json
+    mode: 0640
+  run_once: True
+
+- name: "Create incident in ServiceNow"
+  uri:
+    url: "{{ servicenow.baseurl }}/now/table/incident"
+    method: POST
+    return_content: yes
+    status_code: "201"
+    headers:
+      Content-Type: "application/json,text/plain; charset=utf-8"
+      Accept: "application/json"
+      Authorization: "{{ servicenow.auth }}"
+    body: "{{ lookup('file','/var/tmp/cso_operations_snow_message.json') }}"
+    force_basic_auth: yes
+    body_format: json
+  register: snow_message
+  run_once: True
+
+

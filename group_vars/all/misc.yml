@@ -1,0 +1,13 @@
+---
+cso_auth_config: "{{ lookup('file','/var/tmp/cso_auth.json') }}"
+mist_auth_config: "{{ lookup('file','/var/tmp/mist_auth.json') }}"
+
+site_config: "./host_vars/{{ inventory_hostname }}/all.yml"
+site_yaml_config: "{{ lookup('file', site_config) }}"
+
+python_dict_config: "/var/tmp/{{ inventory_hostname }}.py"
+site_python_config: "{{ lookup('file', python_dict_config) }}"
+
+site_json: "/var/tmp/{{ inventory_hostname }}.json"
+
+cso_tenant_id: "a4990978-c313-428c-b6a8-dfa9ec5eda37"

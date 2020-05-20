@@ -1,0 +1,82 @@
+### ---------------------------------------------------------------------------
+### BUILD QUERY PAYLOAD FOR CSO
+### ---------------------------------------------------------------------------
+- name: "Create a JSON payload with tenant UUID"
+  template:
+    src: cso_tenant.j2
+    dest: "/var/tmp/cso_tenant.json"
+    mode: 0640
+  run_once: True
+
+### ---------------------------------------------------------------------------
+### RECEIVE AUTH TOKEN FROM CSO
+### ---------------------------------------------------------------------------
+- name: "Login to CSO and retrieve list of sites for the tenant"
+  uri:
+    url: "{{ cso.baseurl }}/data-view-central/tenant-sites"
+    method: GET
+    body: "{{ lookup('file','/var/tmp/cso_tenant.json') }}"
+    return_content: yes
+    status_code: "200"
+    body_format: json
+    headers:
+      Accept: "application/json"
+      X-Auth-Token: "{{ token }}"
+    validate_certs: false
+  register: cso_sites
+  run_once: True
+
+- name: "create tenant sites list variable"
+  set_fact:
+    tenant_sites: "{{ cso_sites.json | get_tenant_sites }}"
+
+### ---------------------------------------------------------------------------
+### RECEIVE SITE INFORMATION FROM CSO
+### ---------------------------------------------------------------------------
+- name: "Gather detailed information regarding devices at each sites"
+  uri:
+    url: "{{ cso.baseurl }}/data-view-central/tenant-sites/{{ item.uuid }}"
+    method: GET
+    return_content: yes
+    status_code: "200"
+    headers:
+      Accept: "application/json"
+      X-Auth-Token: "{{ token }}"
+  register: site_info
+  loop: "{{ tenant_sites }}"
+  run_once: True
+
+### ---------------------------------------------------------------------------
+### DROP ALL DATA IN DJANGO APP
+### ---------------------------------------------------------------------------
+- name: "PURGE THE DATA"
+  uri:
+    url: "{{ django.baseurl }}/delete/"
+    method: DELETE
+    status_code: "200"
+    headers:
+      Accept: "application/json"
+      Authorization: "Token {{ django.apitoken }}"
+  run_once: True
+
+### ---------------------------------------------------------------------------
+### POST DJANGO WEB APP 
+### ---------------------------------------------------------------------------
+- name: "Post to Django Middleware API"
+  uri:
+    url: "{{ django.baseurl }}"
+    method: POST
+    body: 
+      site_name: "{{ item['json']['tenant-sites']['fq_name'][0] }}"
+      site_address: "{{ item['json']['tenant-sites']['location'] }}"
+      cpe_platform: "{{ item['json']['tenant-sites']['device'] | find_cpe('family') }}"
+      cpe_serial: "{{ item['json']['tenant-sites']['device'] | find_cpe('serial') }}"
+      notes: ""
+    body_format: json
+    return_content: yes
+    status_code: "201"
+    headers:
+      Accept: "application/json"
+      Authorization: "Token {{ django.apitoken }}"
+  loop: "{{ site_info.results }}"
+  run_once: True

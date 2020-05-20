@@ -1,0 +1,29 @@
+### ---------------------------------------------------------------------------
+### BUILD PAYLOAD FOR SITE
+### ---------------------------------------------------------------------------
+- name: "Create a JSON payload with site details"
+  template:
+    src: mist_build_site.j2
+    dest: /var/tmp/mist_build_site.json
+    mode: 0640
+
+### ---------------------------------------------------------------------------
+### CREATE SITE IN MIST
+### ---------------------------------------------------------------------------
+- name: "Create a new site in Mist"
+  uri:
+    url: "{{ mist.baseurl }}/v1/orgs/{{ mist.orgid }}/sites"
+    method: POST
+    return_content: yes
+    status_code: "200"
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Token {{ mist.apitoken }}"
+    body: "{{ lookup('file','/var/tmp/mist_build_site.json') }}"
+    force_basic_auth: yes
+    body_format: json
+  register: create_site
+
+- name: "setting site_id variable"
+  set_fact:
+    site_id: "{{ create_site.json.id }}"

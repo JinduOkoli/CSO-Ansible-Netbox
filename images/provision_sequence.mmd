@@ -1,0 +1,52 @@
+sequenceDiagram
+    participant ServiceNow Request
+    participant ServiceNow Workflow
+    participant ServiceNow REST
+    participant Ansible Tower
+    participant Github
+    participant Netbox
+    participant CSO
+    participant Mist
+    participant Slack
+
+    ServiceNow Request->>ServiceNow Workflow: User enters site details in form
+
+    ServiceNow Workflow->>ServiceNow REST: Form values passed as variables
+
+    ServiceNow REST->>Ansible Tower: Variables compiled into<br/>extra_vars JSON dictionary
+
+    Ansible Tower->>+Github: Request latest master branch
+    Github->>-Ansible Tower: sends back master branch
+
+    Ansible Tower->>+Netbox: Request details on site
+    Netbox->>-Ansible Tower: sends back site details
+
+    Note right of Ansible Tower: Retreive auth token
+    loop Playbook Execution
+        Ansible Tower->>Ansible Tower: Generate authentication payload
+    end
+    Ansible Tower->>+CSO: Post authentication JSON
+    CSO->>-Ansible Tower: send back Auth token in response headers
+
+    Note right of Ansible Tower: SD-WAN provision
+    loop Playbook Execution
+        Ansible Tower->>Ansible Tower: Parse CSO variables to JSON
+    end
+    Ansible Tower->>+CSO: Post site JSON
+    CSO->>-Ansible Tower: sends back status code response
+    Ansible Tower->>Slack: Send notification to team in Slack Channel
+
+    Note right of Ansible Tower: Mist site provision
+    loop Playbook Execution
+        Ansible Tower->>Ansible Tower: Parse Mist variables to JSON
+    end
+    Ansible Tower->>+Mist: Post Mist site JSON
+    Mist->>-Ansible Tower: sends back status code and site ID in response
+
+    Note right of Ansible Tower: Mist WLAN provision
+    loop Playbook Execution
+        Ansible Tower->>Ansible Tower: Parse Mist variables to JSON
+    end
+    Ansible Tower->>+Mist: Post Mist site JSON
+    Mist->>-Ansible Tower: sends back status code in response
+    Ansible Tower->>Slack: Send notification to team in Slack Channel
