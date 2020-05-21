@@ -10,7 +10,7 @@
 
 - name: "send an update message to team on Slack"
   uri:
-    url: "https://hooks.slack.com/services/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"
+    url: "{{ slack.baseurl }}"
     method: POST
     return_content: yes
     status_code: "200"
