@@ -11,21 +11,21 @@
       ### ---------------------------------------------------------------------------
       ### Netbox work 
       ### ---------------------------------------------------------------------------
-      - { role: netbox_get_device_data }
-      - { role: netbox_get_site_data }
-      - { role: netbox_get_site_prefixes }
-      - { role: netbox_get_device_prefixes }
+      # - { role: netbox_get_device_data }
+      # - { role: netbox_get_site_data }
+      # - { role: netbox_get_site_prefixes }
+      # - { role: netbox_get_device_prefixes }
       # - { role: netbox_debug }
       ### ---------------------------------------------------------------------------
       ### CSO SD-WAN work 
       ### ---------------------------------------------------------------------------
-      - { role: cso_auth }
-      - { role: cso_build_site }
+      # - { role: cso_auth }
+      # - { role: cso_build_site }
       - { role: slack_build_cso }
       ### ---------------------------------------------------------------------------
       ### Mist Wireless work  
       ### ---------------------------------------------------------------------------
       # - { role: mist_auth }
-      - { role: mist_build_site }
-      - { role: mist_build_wlan }
+      # - { role: mist_build_site }
+      # - { role: mist_build_wlan }
       - { role: slack_build_mist }
