@@ -1,3 +1,35 @@
 {
-  "text":"{{ site_name }} has been successfully created as a site in Juniper Mist!"
+    "text": "Ansible Tower has created a new WLAN site",
+    "blocks": [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Ansible Tower has created a new WLAN site:"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "section567",
+            "text": {
+                "type": "mrkdwn",
+                "text": "<https://manage.mist.com/admin/?org_id={{ mist.orgid }}#!configuration/site/{{ site_id }}|{{ site_name }}> \n :star: \n {{ mist.address }}, {{ mist.country_code }}"
+            },
+            "accessory": {
+                "type": "image",
+                "image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/mist.png",
+                "alt_text": "Mist Wireless"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "section789",
+            "fields": [
+                {
+                    "type": "mrkdwn",
+                    "text": "*Data SSID:*:\nname: `{{ site_name }}-wlan1`"
+                }
+            ]
+        }
+    ]
 }
