@@ -1,3 +1,47 @@
 {
-  "text":"{{ site_name }} has been successfully created as an SD-WAN site in Juniper CSO!"
+    "text": "Ansible Tower has created a new SD-WAN site",
+    "blocks": [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Ansible Tower has created a new SD-WAN site:"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "section567",
+            "text": {
+                "type": "mrkdwn",
+                "text": "<https://contrail-juniper.net/site/site_management|{{ site_name }}> \n :star: \n {{ site_data.street_address }} \n{{ site_data.city }}, {{ site_data.state }}\n{{ site_data.country }}"
+            },
+            "accessory": {
+                "type": "image",
+                "image_url": "https://github.com/packetferret/CSO-Ansible-Netbox/tree/master/images/juniper_burst_icon.png",
+                "alt_text": "Juniper SD-WAN"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "section789",
+            "fields": [
+                {
+                    "type": "mrkdwn",
+                    "text": "*data VRF:*:\nname: {{ site_prefixes.data.vrf }}\nprefix: {{ device_prefixes.data.address }}"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": "*voice VRF:*:\nname: {{ site_prefixes.voice.vrf }}\nprefix: {{ device_prefixes.voice.address }}"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": "*iot VRF:*:\nname: {{ site_prefixes.iot.vrf }}\nprefix: {{ device_prefixes.iot.address }}"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": "*pci VRF:*:\nname: {{ site_prefixes.pci.vrf }}\nprefix: {{ device_prefixes.pci.address }}"
+                }
+            ]
+        }
+    ]
 }
