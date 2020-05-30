@@ -29,6 +29,23 @@ Python packages are installed with the pip command
 $ pip install cso_ansible_sdk
 ```
 
+## Very Important!
+
+Please make sure to create your own `secrets.yml` file and store it in `group_vars/all` directory. This file hosts many variables necessary to complete the ansible playbook, without this file all of your plans for SD-WAN automation are destroyed. 
+
+The `secrets_example.yml` file from the root directory of this project will get you started, simply update the variables with the values appropriate for your environment and move it to `group_vars/all` directory, overwriting the current file there.
+
+This should do the trick nicely
+
+```sh
+$ mv secrets_example.yml ./group_vars/all/secrets.yml
+```
+
+### Optional:
+> Leverage Ansible-Vault to encrypt the `secrets.yml` file before hosting on the public internet
+
+> `ansible-vault encrypt secrets.yml`
+
 ## Development
 
 Want to contribute? Great!
