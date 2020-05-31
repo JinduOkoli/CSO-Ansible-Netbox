@@ -88,5 +88,5 @@
     headers:
       Accept: "application/json"
       Authorization: "Token {{ django.apitoken }}"
-  loop: "{{ site_info.results }}"
+  # loop: "{{ site_info.results }}"
   run_once: True
