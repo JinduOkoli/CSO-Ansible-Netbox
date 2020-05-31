@@ -1,0 +1,35 @@
+---
+config:
+  dhcp:
+    max_lease_time: 86400
+    name_server: 
+      primary: "8.8.8.8"
+      secondary: "8.8.4.4"
+  cpe:
+    lan_ports: "LAN_0"
+    wan_link:
+      primary:
+        local_interface: "ge-0/0/0"
+        name: WAN_0
+        wan_link_type: Internet
+        access_type: Ethernet
+        provider: Comcast
+        cost: 800
+        mesh_tag: INTERNET
+    overlay:
+      tunnel_type: GRE_IPSEC
+    vpn_name:
+      primary: "{{ tenant_name }}_DefaultVPN"
+    template_name: "{{ tenant_name }}/calvin_spoke_vsrx"
+  site_deployment_capabilities:
+    primary: SDWAN
+  ntpserver: "216.239.35.4"
+  timezone: "America/Chicago"
+  hub_sites:
+    primary: 
+      name: JNPR-US-E-HUB-1
+      gw_ip: "67.128.79.33"
+    secondary: 
+      name: JNPR-US-E-HUB-2
+      gw_ip: "67.128.79.37"
+  mgmt_prefix: "10.23.24.0/24"
