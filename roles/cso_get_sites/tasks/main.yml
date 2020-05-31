@@ -65,24 +65,28 @@
 - debug:
     msg: "{{ site_info.results }}"
 
-# ### ---------------------------------------------------------------------------
-# ### POST DJANGO WEB APP 
-# ### ---------------------------------------------------------------------------
-# - name: "Post to Django Middleware API"
-#   uri:
-#     url: "{{ django.baseurl }}"
-#     method: POST
-#     body: 
-#       site_name: "{{ item['json']['tenant-sites']['fq_name'][0] }}"
-#       site_address: "{{ item['json']['tenant-sites']['location'] }}"
-#       cpe_platform: "{{ item['json']['tenant-sites']['device'] | find_cpe('family') }}"
-#       cpe_serial: "{{ item['json']['tenant-sites']['device'] | find_cpe('serial') }}"
-#       notes: ""
-#     body_format: json
-#     return_content: yes
-#     status_code: "201"
-#     headers:
-#       Accept: "application/json"
-#       Authorization: "Token {{ django.apitoken }}"
-#   loop: "{{ site_info.results }}"
-#   run_once: True
+### ---------------------------------------------------------------------------
+### POST DJANGO WEB APP 
+### ---------------------------------------------------------------------------
+- name: "Post to Django Middleware API"
+  uri:
+    url: "{{ django.baseurl }}"
+    method: POST
+    body: 
+      # site_name: "{{ item['json']['tenant-sites']['fq_name'][0] }}"
+      # site_address: "{{ item['json']['tenant-sites']['location'] }}"
+      # cpe_platform: "{{ item['json']['tenant-sites']['device'] | find_cpe('family') }}"
+      # cpe_serial: "{{ item['json']['tenant-sites']['device'] | find_cpe('serial') }}"
+      site_name: "test"
+      site_address: "test"
+      cpe_platform: "test"
+      cpe_serial: "test"
+      notes: ""
+    body_format: json
+    return_content: yes
+    status_code: "201"
+    headers:
+      Accept: "application/json"
+      Authorization: "Token {{ django.apitoken }}"
+  loop: "{{ site_info.results }}"
+  run_once: True
