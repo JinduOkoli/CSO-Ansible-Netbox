@@ -20,7 +20,7 @@ config:
       tunnel_type: GRE_IPSEC
     vpn_name:
       primary: "{{ tenant_name }}_DefaultVPN"
-    template_name: "{{ tenant_name }}/calvin_spoke_vsrx"
+    template_name: "{{ tenant_name }}/calvin_spoke_srx"
   site_deployment_capabilities:
     primary: SDWAN
   ntpserver: "216.239.35.4"
