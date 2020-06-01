@@ -227,6 +227,8 @@ input:
                 preferred_breakout_link: false
                 bgp_authentication_mode: NONE
                 used_for_meshing: true
+                mesh_tag:
+                  - "{{ config.cpe.wan_link.primary.mesh_tag }}"
                 traffic_type: DATA_ONLY
                 backup_link: false
                 default_link: false
