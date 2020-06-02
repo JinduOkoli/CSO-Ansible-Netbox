@@ -209,7 +209,7 @@ input:
             pppoe_setting:
               auth_protocol: PAP
             wan_link:
-              - wan_link_name: "{{ config.cpe.wan_link.primary.name }}"
+              - wan_link_name: WAN_0
                 wan_link_type: Internet
                 overlay_tunnel:
                   - peer_info:
@@ -219,6 +219,15 @@ input:
                     tunnel_type: "{{ config.cpe.overlay.tunnel_type }}"
                     tunnel_id: 0
                     tunnel_endpoint_role: SPOKE
+                  - peer_info:
+                      interface_name: "{{ config.cpe.wan_link.primary.name }}"
+                      internet_gw_ip: "{{ config.hub_sites.secondary.gw_ip }}"
+                      peer_device: "{{ config.hub_sites.secondary.name }}"
+                    tunnel_type: "{{ config.cpe.overlay.tunnel_type }}"
+                    tunnel_id: 1
+                    tunnel_endpoint_role: SPOKE
+                    vpn_name: "{{ config.cpe.vpn_name.primary }}"
+                mesh_overlay_link_type: "{{ config.cpe.overlay.tunnel_type }}"
                 connect_to_hubs: true
                 used_for_oam: true
                 local_interface: "{{ config.cpe.wan_link.primary.local_interface }}"
