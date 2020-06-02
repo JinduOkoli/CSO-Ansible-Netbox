@@ -6,7 +6,7 @@ config:
       primary: "8.8.8.8"
       secondary: "8.8.4.4"
   cpe:
-    lan_ports: "LAN_0"
+    lan_ports: "LAN_1"
     wan_link:
       primary:
         local_interface: "ge-0/0/0"
