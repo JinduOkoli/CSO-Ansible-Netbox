@@ -13,7 +13,7 @@
             "block_id": "section567",
             "text": {
                 "type": "mrkdwn",
-                "text": "<https://manage.mist.com/admin/?org_id={{ mist.orgid }}#!configuration/site/{{ site_id }}|{{ site_name }}> \n :star: \n {{ mist.address }}, {{ mist.country_code }}"
+                "text": "<https://manage.mist.com/admin/?org_id={{ mist.orgid }}#!configuration/site/{{ site_id }}|{{ cleaned_site_name }}> \n :star: \n {{ mist.address }}, {{ mist.country_code }}"
             },
             "accessory": {
                 "type": "image",
@@ -27,7 +27,7 @@
             "fields": [
                 {
                     "type": "mrkdwn",
-                    "text": "*Data SSID:*:\nname: `{{ site_name }}-wlan1`"
+                    "text": "*Data SSID:*:\nname: `{{ cleaned_site_name }}-wlan1`"
                 }
             ]
         }
