@@ -2,7 +2,7 @@ class FilterModule(object):
 
     def filters(self):
         return {
-            'find_cpe': self.snow_cleanup_site_name,
+            'snow_cleanup_site_name': self.snow_cleanup_site_name,
         }
 
     def snow_cleanup_site_name(self, value):

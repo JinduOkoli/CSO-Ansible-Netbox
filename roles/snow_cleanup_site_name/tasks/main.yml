@@ -5,4 +5,3 @@
   set_fact:
     site_name: "{{ site_name | snow_cleanup_site_name }}"
   run_once: True
-
