@@ -1,6 +1,11 @@
 ### ---------------------------------------------------------------------------
 ### UPDATE TEAM IN SLACK
 ### ---------------------------------------------------------------------------
+- name: "Run cleanup function on site_name variable"
+  set_fact:
+    site_name: "{{ site_name | snow_cleanup_site_name }}"
+  run_once: True
+
 - name: "Create a JSON payload with CSO site details"
   template:
     src: cso_site_slack_message.j2
