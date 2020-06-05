@@ -3,7 +3,7 @@ input:
   tenant_name: "{{ tenant_name }}"
   deployment_scenario: managed_wan_v2
   site:
-    - site_name: "{{ site_name }}"
+    - site_name: "{{ cleaned_site_name }}"
       site_basic_properties:
         # ##### DATA VLAN 
         '0':
@@ -87,7 +87,7 @@ input:
         dvpn_params:
           create_dvpn_threshold: '5'
           delete_dvpn_threshold: '2'
-        site_name: "{{ site_name }}"
+        site_name: "{{ cleaned_site_name }}"
         site_contact:
           contact_name: "{{ site_contact_contact_name }}"
           email_address: "{{ site_contact_email_address }}"
@@ -100,7 +100,7 @@ input:
         sla_mgmt: FINE
         device_template:
           - template_name: "{{ config.cpe.template_name }}"
-            device_name: "{{ site_name }}"
+            device_name: "{{ cleaned_site_name }}"
             wan_link_info:
               - wan_link: "{{ config.cpe.wan_link.primary.name }}"
                 wan_link_type: Internet
@@ -192,7 +192,7 @@ input:
                 - "{{ config.cpe.trunk_ports_1 }}"
                 - "{{ config.cpe.trunk_ports_2 }}"
               cpe_dhcp_resource_pool: "{{ mgmt_prefix }}"
-              cpe_device_name: "{{ site_name }}"
+              cpe_device_name: "{{ cleaned_site_name }}"
             lan_segment:
               # ##### DATA VLAN 
               - lan_segment_type: direct
@@ -276,7 +276,7 @@ input:
           ha_topology: STANDALONE
         device:
           - device_family: juniper-srx
-            device_name: "{{ site_name }}"
+            device_name: "{{ cleaned_site_name }}"
             device_template: "{{ config.cpe.template_name }}"
             device_details:
               auto_activate: true
