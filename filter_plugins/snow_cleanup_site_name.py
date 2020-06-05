@@ -6,7 +6,6 @@ class FilterModule(object):
         }
 
     def snow_cleanup_site_name(self, value):
-        # cpe = {}
-        site_name = value.replace(" ", "-")
-        site_name = site_name.lower()
-        return site_name
+        value = value.replace(" ", "-")
+        value = value.lower()
+        return value
