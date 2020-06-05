@@ -9,4 +9,4 @@ class FilterModule(object):
         # cpe = {}
         site_name = value.replace(" ", "-")
         site_name = site_name.lower()
-        return site_name        
+        return site_name
