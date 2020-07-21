@@ -59,3 +59,27 @@
 - name: "Post the status of our site"
   debug:
     msg: "{{ sites_status }}"
+
+### ---------------------------------------------------------------------------
+### UPDATE TEAM IN SLACK
+### ---------------------------------------------------------------------------
+- name: "Create a JSON payload with CSO site details"
+  template:
+    src: slack_message_cso_status.j2
+    dest: /var/tmp/slack_message_cso_status.json
+    mode: 0640
+  run_once: True
+
+- name: "send an update message to team on Slack"
+  uri:
+    url: "{{ slack.baseurl }}"
+    method: POST
+    return_content: yes
+    status_code: "200"
+    headers:
+      Content-Type: "application/json"
+    body: "{{ lookup('file','/var/tmp/slack_message_cso_status.json') }}"
+    force_basic_auth: yes
+    body_format: json
+  register: slack_message
+  run_once: True
