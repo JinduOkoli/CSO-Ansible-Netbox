@@ -70,6 +70,10 @@
     mode: 0640
   run_once: True
 
+- name: "Post the status of our site"
+  debug:
+    msg: "{{ lookup('file','/var/tmp/slack_message_cso_status.json') }}"
+
 - name: "send an update message to team on Slack"
   uri:
     url: "{{ slack.baseurl }}"
