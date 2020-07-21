@@ -5,18 +5,14 @@ class FilterModule(object):
             'get_health_of_sites': self.get_health_of_sites,
         }
 
-    def get_health_of_sites(self, value):
+    def get_health_of_sites(self, value, site_name):
         import json
         sites = []
 
         for each in value['results']:
           site = {}
           for fq in each['json']['tenant-sites']['fq_name']:
-            if "OAM" in fq:
-              pass
-            elif "JNPR" in fq:
-              pass
-            else:
+            if site_name in fq:
               site["name"] = each['json']['tenant-sites']["fq_name"][0]
               site["uuid"] = each['json']['tenant-sites']["uuid"]
               site["href"] = each['json']['tenant-sites']["href"]
