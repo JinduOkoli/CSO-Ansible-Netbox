@@ -14,41 +14,15 @@
             "block_id": "site_name",
             "text": {
                 "type": "mrkdwn",
-                "text": "Site's name: {{ each.name }}"
-            }
-        },
-        {
-            "type": "section",
-            "block_id": "location",
-            "text": {
-                "type": "mrkdwn",
-                "text": "Location: {{ each.location }}"
-            }
-        },
-        {
-            "type": "section",
-            "block_id": "management_state",
-            "text": {
-                "type": "mrkdwn",
-                "text": "Management State: {{ each.management_state }}"
-            }
-        },
-        {
-            "type": "section",
-            "block_id": "device_serial_number",
-            "text": {
-                "type": "mrkdwn",
-                "text": "Serial Number: {{ each.device_serial_number }}"
-            }
-        },
-        {
-            "type": "section",
-            "block_id": "state",
-            "text": {
-                "type": "mrkdwn",
-                "text": "Management State: {{ each.state }} :white_check_mark:"
+                "text": "Site's name: {{ each.name }}\nLocation: {{ each.location }}\nManagement State: {{ each.management_state }}\nSerial Number: {{ each.device_serial_number }}\nManagement State: {{ each.state }} :white_check_mark:"
+            },
+            "accessory": {
+                "type": "image",
+                "image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/juniper_burst_icon.png",
+                "alt_text": "Juniper SD-WAN"
             }
         }
     ]
 }
 {% endfor %}
+" \n :white_check_mark: \n {{ each.location }} \n{{ each.activation_state }}, {{ each.management_state }}\n{{ each.device_serial_number }}\n{{ each.state }}"
