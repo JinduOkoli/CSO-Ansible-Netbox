@@ -23,7 +23,7 @@
       Accept: "application/json"
       X-Auth-Token: "{{ token }}"
     validate_certs: false
-  register: cso_sites s
+  register: cso_sites
   run_once: True
 
 - name: "create tenant sites list variable"
