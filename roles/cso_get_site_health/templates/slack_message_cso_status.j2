@@ -7,19 +7,51 @@
             "text": {
                 "type": "mrkdwn",
                 "text": "SD-WAN site status report:"
-            }
-        },
-        {
-            "type": "section",
-            "block_id": "section567",
-            "text": {
-                "type": "mrkdwn",
-                "text": "<https://contrail-juniper.net/site/site_management|{{ each.name }}> \n :star: \n {{ each.location }} \n{{ each.activation_state }}, {{ each.management_state }}\n{{ each.device_serial_number }}\n{{ each.state }}"
             },
             "accessory": {
                 "type": "image",
                 "image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/juniper_burst_icon.png",
                 "alt_text": "Juniper SD-WAN"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "site_name",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Site's name: {{ each.name }}"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "location",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Location: {{ each.location }}"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "management_state",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Management State: {{ each.management_state }}"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "device_serial_number",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Serial Number: {{ each.device_serial_number }}"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "state",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Management State: {{ each.state }} :white_check_mark:"
             }
         }
     ]
