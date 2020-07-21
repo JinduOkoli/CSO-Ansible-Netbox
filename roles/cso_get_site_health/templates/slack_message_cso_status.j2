@@ -1,3 +1,4 @@
+{% for each in sites_status %}
 {
     "text": "SD-WAN site status report",
     "blocks": [
@@ -13,7 +14,7 @@
             "block_id": "section567",
             "text": {
                 "type": "mrkdwn",
-                "text": "<https://contrail-juniper.net/site/site_management|{{ sites_status.name }}> \n :star: \n {{ sites_status.location }} \n{{ sites_status.activation_state }}, {{ sites_status.management_state }}\n{{ sites_status.device_serial_number }}\n{{ sites_status.state }}"
+                "text": "<https://contrail-juniper.net/site/site_management|{{ each.name }}> \n :star: \n {{ each.location }} \n{{ each.activation_state }}, {{ each.management_state }}\n{{ each.device_serial_number }}\n{{ each.state }}"
             },
             "accessory": {
                 "type": "image",
@@ -26,3 +27,4 @@
         }
     ]
 }
+{% endfor %}
