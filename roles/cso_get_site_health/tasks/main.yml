@@ -51,7 +51,7 @@
 ### ---------------------------------------------------------------------------
 - name: "create tenant sites list variable"
   set_fact:
-    sites_status: "{{ site_info.results | get_health_of_sites }}"
+    sites_status: "{{ site_info | get_health_of_sites }}"
 
 ### ---------------------------------------------------------------------------
 ### POST STATUS OF SITE TO CONSOLE
