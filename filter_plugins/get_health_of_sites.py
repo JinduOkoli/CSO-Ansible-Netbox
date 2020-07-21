@@ -9,22 +9,22 @@ class FilterModule(object):
         import json
         sites = []
 
-        for each in value['json']['tenant-sites']:
+        for each in value['results']:
           site = {}
-          for fq in each['fq_name']:
+          for fq in each['json']['tenant-sites']['fq_name']:
             if "OAM" in fq:
               pass
             elif "JNPR" in fq:
               pass
             else:
-              site["name"] = each["fq_name"][0]
-              site["uuid"] = each["uuid"]
-              site["href"] = each["href"]
-              site["location"] = each["location"]
-              site["display_name"] = each["display_name"]
-              site["state"] = each["device"][0]["state"]
-              site["device_serial_number"] = each["device"][0]["device_serial_number"]
-              site["management_state"] = each["device"][0]["management_state"]
-              site["activation_state"] = each["device"][0]["activation_state"]["current_state"]
+              site["name"] = each['json']['tenant-sites']["fq_name"][0]
+              site["uuid"] = each['json']['tenant-sites']["uuid"]
+              site["href"] = each['json']['tenant-sites']["href"]
+              site["location"] = each['json']['tenant-sites']["location"]
+              site["display_name"] = each['json']['tenant-sites']["display_name"]
+              site["state"] = each['json']['tenant-sites']["device"][0]["state"]
+              site["device_serial_number"] = each['json']['tenant-sites']["device"][0]["device_serial_number"]
+              site["management_state"] = each['json']['tenant-sites']["device"][0]["management_state"]
+              site["activation_state"] = each['json']['tenant-sites']["device"][0]["activation_state"]["current_state"]
               sites.append(site)
         return sites
