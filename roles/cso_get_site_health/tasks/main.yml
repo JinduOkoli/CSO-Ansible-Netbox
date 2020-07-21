@@ -51,5 +51,5 @@
 ### ---------------------------------------------------------------------------
 - name: "Post the status of our site"
   debug:
-    msg: "{{ site_info.item.item.name }} is detected"
+    msg: "{{ site_info }} output"
   loop: "{{ site_info.results }}"
