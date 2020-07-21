@@ -49,7 +49,13 @@
 ### ---------------------------------------------------------------------------
 ### POST STATUS OF SITE TO CONSOLE
 ### ---------------------------------------------------------------------------
+- name: "create tenant sites list variable"
+  set_fact:
+    sites_status: "{{ site_info.results | get_health_of_sites }}"
+
+### ---------------------------------------------------------------------------
+### POST STATUS OF SITE TO CONSOLE
+### ---------------------------------------------------------------------------
 - name: "Post the status of our site"
   debug:
-    msg: "{{ item.json['tenant-sites']status }}"
-  loop: "{{ site_info.results }}"
+    msg: "{{ sites_status }}"
