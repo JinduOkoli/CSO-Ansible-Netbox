@@ -51,5 +51,5 @@
 ### ---------------------------------------------------------------------------
 - name: "Post the status of our site"
   debug:
-    msg: "{{ item.json }}"
+    msg: "{{ item.json.status }}"
   loop: "{{ site_info.results }}"
