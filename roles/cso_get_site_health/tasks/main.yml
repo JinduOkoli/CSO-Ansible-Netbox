@@ -52,5 +52,5 @@
 - name: "Post the status of our site"
   debug:
     msg: "site dakotas is detected"
-  loop: "{{ site_info }}"
+  loop: "{{ site_info.results }}"
   when: item.item.name == "dakotas"
