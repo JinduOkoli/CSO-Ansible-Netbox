@@ -51,5 +51,5 @@
 ### ---------------------------------------------------------------------------
 - name: "Post the status of our site"
   debug:
-    msg: "{{ site_info }} output"
+    msg: "{{ site_info.item.json.tenant-sites.display_name }} output"
   loop: "{{ site_info.results }}"
