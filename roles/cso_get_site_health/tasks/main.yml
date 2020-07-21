@@ -51,6 +51,14 @@
 ### ---------------------------------------------------------------------------
 - name: "Post the status of our site"
   debug:
-    msg: "site dakotas is detected"
+    msg: "site Hughes Landing is detected"
   loop: "{{ site_info.results }}"
-  when: item.item.name == "dakotas"
+  when: item.item.name == "hughes-landing"
+  register: specific_site
+
+### ---------------------------------------------------------------------------
+### POST STATUS OF SITE TO CONSOLE
+### ---------------------------------------------------------------------------
+- name: "Post the specific_site value"
+  debug:
+    msg: "{{ specific_site }}"
