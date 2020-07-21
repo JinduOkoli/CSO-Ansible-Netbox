@@ -52,3 +52,5 @@
 - name: "Post the status of our site"
   debug:
     msg: "{{ site_info }}"
+  loop: "{{ site_info }}"
+  when: item.item.name == "dakotas"
