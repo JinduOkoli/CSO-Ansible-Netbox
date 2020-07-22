@@ -21,6 +21,9 @@ class FilterModule(object):
               site["state"] = each['json']['tenant-sites']["device"][0]["state"]
               site["device_serial_number"] = each['json']['tenant-sites']["device"][0]["device_serial_number"]
               site["management_state"] = each['json']['tenant-sites']["device"][0]["management_state"]
-              site["activation_state"] = each['json']['tenant-sites']["device"][0]["activation_state"]["current_state"]
+              try:
+                site["activation_state"] = each['json']['tenant-sites']["device"][0]["activation_state"]["current_state"]
+              except KeyError:
+                site["activation_state"] = "not activated yet"
               sites.append(site)
         return sites
