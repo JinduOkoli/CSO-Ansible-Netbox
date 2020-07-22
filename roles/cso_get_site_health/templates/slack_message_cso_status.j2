@@ -1,4 +1,9 @@
 {% for each in sites_status %}
+{% if each.activation_state == "ACTIVATION_SUCCESS" %}
+{% set activation_state_icon = ":white_check_mark:" %}
+{% else %}
+{% set activation_state_icon = ":x:" %}
+{% endif %}
 {
     "text": "SD-WAN site status report",
     "blocks": [
@@ -14,7 +19,7 @@
             "block_id": "site_name",
             "text": {
                 "type": "mrkdwn",
-                "text": "*Site name*: _{{ each.name }}_\n*Location*: _{{ each.location }}_\n*Serial Number*: _{{ each.device_serial_number }}_\n\n*Activation Stage*: _{{ each.activation_state }}_\n*Management State*: _{{ each.management_state }}_\n*Management State*: _{{ each.state }}_"
+                "text": "*Site name*: _{{ each.name }}_\n*Location*: _{{ each.location }}_\n*Serial Number*: _{{ each.device_serial_number }}_\n\n*Activation Stage*: {{ activation_state_icon }} _{{ each.activation_state }}_\n*Management State*: _{{ each.management_state }}_\n*Current State*: _{{ each.state }}_"
             },
             "accessory": {
                 "type": "image",
