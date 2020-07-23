@@ -1,0 +1,46 @@
+{% for each in sites_status %}
+{# SET THE STATUS ICON OF ACTIVATION STAGE #}
+{% if each.activation_state == "ACTIVATION_SUCCESS" %}
+{% set activation_state_icon = ":white_check_mark:" %}
+{% else %}
+{% set activation_state_icon = ":x:" %}
+{% endif %}
+{# SET THE STATUS ICON OF MANAGEMENT STATE #}
+{% if each.management_state == "PROVISIONED" %}
+{% set management_state_icon = ":white_check_mark:" %}
+{% else %}
+{% set management_state_icon = ":x:" %}
+{% endif %}
+{# SET THE STATUS ICON OF CURRENT STATE #}
+{% if each.state == "up" %}
+{% set state_icon = ":white_check_mark:" %}
+{% else %}
+{% set state_icon = ":x:" %}
+{% endif %}
+{# BEGIN ACTUAL FILE TEMPLATE #}
+{
+    "text": "SD-WAN site status report",
+    "blocks": [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "SD-WAN site status report:"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "site_name",
+            "text": {
+                "type": "mrkdwn",
+                "text": "*Site name*: _{{ each.name }}_\n*Location*: _{{ each.location }}_\n*Serial Number*: _{{ each.device_serial_number }}_\n\n*Activation Stage*: {{ activation_state_icon }} _{{ each.activation_state }}_\n*Management State*: {{ management_state_icon }} _{{ each.management_state }}_\n*Current State*: {{ state_icon }} _{{ each.state }}_"
+            },
+            "accessory": {
+                "type": "image",
+                "image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/juniper_burst_icon.png",
+                "alt_text": "Juniper SD-WAN"
+            }
+        }
+    ]
+}
+{% endfor %}
