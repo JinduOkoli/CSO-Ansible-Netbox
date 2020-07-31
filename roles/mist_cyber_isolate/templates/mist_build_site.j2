@@ -1,0 +1,151 @@
+{
+    "id": "{{ ssid.id }}",
+    "ssid": "{{ ssid.name }}",
+    "enabled": true,
+    "hide_ssid": false,
+    "no_static_ip": false,
+    "no_static_dns": false,
+    "band": "both",
+    "band_steer": false,
+    "airwatch": {
+        "enabled": false,
+        "console_url": "",
+        "api_key": "",
+        "username": "",
+        "password": ""
+    },
+    "disable_wmm": false,
+    "disable_uapsd": false,
+    "use_eapol_v1": false,
+    "roam_mode": "NONE",
+    "auth_servers_nas_id": "",
+    "auth_servers_nas_ip": "",
+    "disable_11ax": false,
+    "vlan_enabled": false,
+    "arp_filter": false,
+    "limit_bcast": false,
+    "allow_mdns": false,
+    "vlan_id": null,
+    "interface": "all",
+    "mxtunnel_id": null,
+    "wxtunnel_id": null,
+    "wxtunnel_remote_id": null,
+    "wlan_limit_up": 10000,
+    "wlan_limit_down": 20000,
+    "client_limit_up": 512,
+    "client_limit_down": 1000,
+    "portal": {
+        "enabled": true,
+        "bypass_when_cloud_down": true,
+        "auth": "external",
+        "privacy": false,
+        "external_portal_url": "https://us-cert.cisa.gov/ncas/tips/ST18-006",
+        "sso_issuer": "",
+        "sso_nameid_format": "email",
+        "sso_idp_sign_algo": "sha1",
+        "sso_idp_cert": "",
+        "sso_idp_sso_url": "",
+        "sso_default_role": "",
+        "sso_forced_role": "",
+        "password": "",
+        "expire": 1440,
+        "forward": false,
+        "forward_url": "",
+        "passphrase_enabled": false,
+        "email_enabled": false,
+        "sms_enabled": false,
+        "smsMessageFormat": "Code {{code}} expires in {{duration}} minutes.",
+        "sms_provider": "manual",
+        "sponsor_enabled": false,
+        "sponsor_email_domains": [],
+        "sponsor_link_validity_duration": "60",
+        "google_enabled": false,
+        "google_client_id": "",
+        "google_client_secret": "",
+        "google_email_domains": [],
+        "facebook_enabled": false,
+        "facebook_client_id": "",
+        "facebook_client_secret": "",
+        "facebook_email_domains": [],
+        "amazon_enabled": false,
+        "amazon_client_id": "",
+        "amazon_client_secret": "",
+        "amazon_email_domains": [],
+        "microsoft_enabled": false,
+        "microsoft_client_id": "",
+        "microsoft_client_secret": "",
+        "microsoft_email_domains": [],
+        "azure_enabled": false,
+        "azure_client_id": "",
+        "azure_client_secret": "",
+        "azure_tenant_id": ""
+    },
+    "portal_allowed_subnets": [],
+    "portal_allowed_hostnames": [],
+    "portal_denied_hostnames": [],
+    "portal_api_secret": "",
+    "cisco_cwa": {
+        "enabled": false,
+        "allowed_subnets": [],
+        "allowed_hostnames": []
+    },
+    "auth_servers": [],
+    "acct_servers": [],
+    "schedule": {
+        "enabled": false,
+        "hours": {}
+    },
+    "radsec": {
+        "enabled": false,
+        "server_name": "",
+        "servers": []
+    },
+    "dtim": 2,
+    "app_qos": {
+        "enabled": false,
+        "apps": {}
+    },
+    "auth": {
+        "type": "psk",
+        "enable_mac_auth": false,
+        "private_wlan": false,
+        "keys": [
+            null,
+            null,
+            null,
+            null
+        ],
+        "key_idx": 1,
+        "multi_psk_only": false,
+        "eap_reauth": false,
+        "psk": "Mist1234"
+    },
+    "dynamic_vlan": null,
+    "dns_server_rewrite": null,
+    "qos": {
+        "overwrite": false,
+        "class": "best_effort"
+    },
+    "coa_server": null,
+    "rateset": {
+        "5": {
+            "template": "compatible",
+            "min_rssi": 0
+        },
+        "24": {
+            "template": "compatible",
+            "min_rssi": 0
+        }
+    },
+    "app_limit": {
+        "enabled": false,
+        "apps": {},
+        "wxtag_ids": {}
+    },
+    "max_idletime": 1800,
+    "vlan_pooling": false,
+    "vlan_ids": [],
+    "wxtag_ids": null,
+    "ap_ids": null,
+    "apply_to": "site"
+}
