@@ -1,7 +1,6 @@
 ---
 config:
   dhcp:
-    max_lease_time: 86400
     name_server: 
       primary: "8.8.8.8"
       secondary: "1.1.1.1"

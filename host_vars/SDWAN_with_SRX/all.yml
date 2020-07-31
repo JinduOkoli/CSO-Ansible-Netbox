@@ -53,7 +53,7 @@ input:
                   dhcp:
                     range_low: "{{ site_prefixes.data.dhcp_low }}"
                     range_high: "{{ site_prefixes.data.dhcp_high }}"
-                    max_lease_time: "{{ config.dhcp.max_lease_time }}"
+                    max_lease_time: 86400
                     name_server:
                       - "{{ config.dhcp.name_server.primary }}"
                       - "{{ config.dhcp.name_server.secondary }}"
@@ -71,7 +71,7 @@ input:
                   dhcp:
                     range_low: "{{ site_prefixes.voice.dhcp_low }}"
                     range_high: "{{ site_prefixes.voice.dhcp_high }}"
-                    max_lease_time: "{{ config.dhcp.max_lease_time }}"
+                    max_lease_time: 86400
                     name_server:
                       - "{{ config.dhcp.name_server.primary }}"
                       - "{{ config.dhcp.name_server.secondary }}"
@@ -89,7 +89,7 @@ input:
                   dhcp:
                     range_low: "{{ site_prefixes.iot.dhcp_low }}"
                     range_high: "{{ site_prefixes.iot.dhcp_high }}"
-                    max_lease_time: "{{ config.dhcp.max_lease_time }}"
+                    max_lease_time: 86400
                     name_server:
                       - "{{ config.dhcp.name_server.primary }}"
                       - "{{ config.dhcp.name_server.secondary }}"
@@ -107,7 +107,7 @@ input:
                   dhcp:
                     range_low: "{{ site_prefixes.pci.dhcp_low }}"
                     range_high: "{{ site_prefixes.pci.dhcp_high }}"
-                    max_lease_time: "{{ config.dhcp.max_lease_time }}"
+                    max_lease_time: 86400
                     name_server:
                       - "{{ config.dhcp.name_server.primary }}"
                       - "{{ config.dhcp.name_server.secondary }}"
