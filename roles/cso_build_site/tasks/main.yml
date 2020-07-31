@@ -5,24 +5,23 @@
   set_fact:
     yaml_to_python: "{{ site_yaml_config | yaml_to_dict }}"
 
+- name: 'debug love yaml_to_python'
+  debug:
+    var: yaml_to_python
+
+- name: 'debug love site_python_config'
+  debug:
+    var: site_python_config
+
 - name: "write the Python dictionary to a local file"
   local_action: 
     module: copy 
     content: "{{ yaml_to_python }}"
     dest: "{{ python_dict_config }}"
 
-- name: 'debug love yaml_to_python'
-  debug:
-    var: yaml_to_python
-
 - name: 'debug love python_dict_config'
   debug:
     var: python_dict_config
-
-- name: 'debug love site_python_config'
-  debug:
-    var: site_python_config
-
 
 - name: "build the SD-WAN site with custom module"
   cso_site:
