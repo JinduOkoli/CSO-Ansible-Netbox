@@ -5,6 +5,12 @@
   set_fact:
     yaml_to_python: "{{ site_yaml_config | yaml_to_dict }}"
 
+- name: "write the Python dictionary to a local file"
+  local_action: 
+    module: copy 
+    content: "{{ yaml_to_python }}"
+    dest: "{{ python_dict_config }}"
+
 - name: 'debug love yaml_to_python'
   debug:
     var: yaml_to_python
@@ -12,12 +18,6 @@
 - name: 'debug love site_python_config'
   debug:
     var: site_python_config
-
-- name: "write the Python dictionary to a local file"
-  local_action: 
-    module: copy 
-    content: "{{ yaml_to_python }}"
-    dest: "{{ python_dict_config }}"
 
 - name: 'debug love python_dict_config'
   debug:
