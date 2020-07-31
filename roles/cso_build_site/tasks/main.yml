@@ -11,22 +11,23 @@
     content: "{{ yaml_to_python }}"
     dest: "{{ python_dict_config }}"
 
+- name: 'debug love yaml_to_python'
+  debug:
+    var: yaml_to_python
+
+- name: 'debug love python_dict_config'
+  debug:
+    var: python_dict_config
+
+- name: 'debug love site_python_config'
+  debug:
+    var: site_python_config
+
+
 - name: "build the SD-WAN site with custom module"
   cso_site:
     site_name: "{{ inventory_hostname }}"
     config: "{{ site_python_config }}"
     state: present
     token: "{{ token }}"
-
-# - name: 'debug love yaml_to_python'
-#   debug:
-#     var: yaml_to_python
-
-# - name: 'debug love python_dict_config'
-#   debug:
-#     var: python_dict_config
-
-# - name: 'debug love site_python_config'
-#   debug:
-#     var: site_python_config
 
