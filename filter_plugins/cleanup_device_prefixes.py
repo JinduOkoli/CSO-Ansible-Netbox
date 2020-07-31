@@ -11,6 +11,7 @@ class FilterModule(object):
         voice = {}
         iot = {}
         pci = {}
+        default = {}
         for each in value:
             if each["vrf"]["name"] == 'data':
                 data["address"] = each["address"]
@@ -48,6 +49,15 @@ class FilterModule(object):
                 pci["rd"] = each["vrf"]["rd"]
                 pci["tags"] = each["tags"]
                 pci["tenant"] = each["tenant"]["slug"]
+            elif each["vrf"]["name"] == 'Default':
+                default["address"] = each["address"]
+                default["description"] = each["description"]
+                default["device"] = each["interface"]["device"]["display_name"]
+                default["interface"] = each["interface"]["name"]
+                default["name"] = each["vrf"]["name"]
+                default["rd"] = each["vrf"]["rd"]
+                default["tags"] = each["tags"]
+                default["tenant"] = each["tenant"]["slug"]
             else:
                 pass
         
@@ -55,4 +65,5 @@ class FilterModule(object):
         prefixes['voice'] = voice
         prefixes['iot'] = iot
         prefixes['pci'] = pci
+        prefixes['Default'] = default
         return prefixes
