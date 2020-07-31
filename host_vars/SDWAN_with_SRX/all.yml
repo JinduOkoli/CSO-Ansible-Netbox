@@ -15,7 +15,7 @@ input:
           street: "{{ site_data.street_address }}"
           city: "{{ site_data.city }}"
           state: "{{ site_data.state }}"
-          zip_code: "{{ site_data.zip_code }}"
+          # zip_code: "{{ site_data.zip_code }}"
           country: "{{ site_data.country }}"
         site_contact:
           contact_name: "{{ site_data.contact_name }}"
