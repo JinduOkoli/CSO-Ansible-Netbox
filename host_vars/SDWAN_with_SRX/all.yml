@@ -69,8 +69,8 @@ input:
                 dhcp: true
                 additional_config:
                   dhcp:
-                    range_low: "{{ site_prefixes.data.dhcp_low }}"
-                    range_high: "{{ site_prefixes.data.dhcp_high }}"
+                    range_low: "{{ site_prefixes.voice.dhcp_low }}"
+                    range_high: "{{ site_prefixes.voice.dhcp_high }}"
                     max_lease_time: "{{ config.dhcp.max_lease_time }}"
                     name_server:
                       - "{{ config.dhcp.name_server.primary }}"
@@ -96,22 +96,22 @@ input:
                     subnet: "{{ device_prefixes.iot.address }}"
                 lan_ports:
                   - "{{ config.cpe.lan_ports }}"
-              # ### IOT VLAN
+              # ### PCI VLAN
               - lan_segment_name: pci
                 lan_segment_type: direct
-                vlan: "{{ site_prefixes.iot.vid | int }}"
-                department: "{{ site_prefixes.iot.vrf }}"
-                ip_prefix: "{{ device_prefixes.iot.address }}"
+                vlan: "{{ site_prefixes.pci.vid | int }}"
+                department: "{{ site_prefixes.pci.vrf }}"
+                ip_prefix: "{{ device_prefixes.pci.address }}"
                 dhcp: true
                 additional_config:
                   dhcp:
-                    range_low: "{{ site_prefixes.iot.dhcp_low }}"
-                    range_high: "{{ site_prefixes.iot.dhcp_high }}"
+                    range_low: "{{ site_prefixes.pci.dhcp_low }}"
+                    range_high: "{{ site_prefixes.pci.dhcp_high }}"
                     max_lease_time: "{{ config.dhcp.max_lease_time }}"
                     name_server:
                       - "{{ config.dhcp.name_server.primary }}"
                       - "{{ config.dhcp.name_server.secondary }}"
-                    subnet: "{{ device_prefixes.iot.address }}"
+                    subnet: "{{ device_prefixes.pci.address }}"
                 lan_ports:
                   - "{{ config.cpe.lan_ports }}"
         site_deployment_capabilities:
