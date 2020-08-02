@@ -17,6 +17,10 @@
   set_fact:
     yaml_config: "{{ lookup('file','/var/tmp/mist_configure_switch.yml') | from_yaml }}"
 
+- name: "debug"
+  debug:
+    msg: "{{ yaml_config }}"
+
 ### ---------------------------------------------------------------------------
 ### PUSH CONFIGURATION TO MIST
 ### ---------------------------------------------------------------------------
