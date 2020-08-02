@@ -31,6 +31,6 @@
       Authorization: "Token {{ mist_wired.api_token }}"
     return_content: yes
     status_code: 200
-    method: PUT
+    method: POST
     body: "{{ yaml_config | to_json }}"
     body_format: json
