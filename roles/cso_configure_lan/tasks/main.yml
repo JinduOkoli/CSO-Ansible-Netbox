@@ -1,0 +1,13 @@
+### ---------------------------------------------------------------------------
+### BUILD LAN SEGMENT IN CSO
+### ---------------------------------------------------------------------------
+- name: build LAN segment
+  uri:
+    url: https://contrail-juniper.net/tssm/add-lan-segments
+    method: POST
+    headers:
+      x-auth-token: "{{ token }}"
+    body: "{{ lan_config | to_json }}"
+    body_format: json
+    status_code: 200
+

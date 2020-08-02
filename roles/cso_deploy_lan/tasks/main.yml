@@ -1,0 +1,17 @@
+### ---------------------------------------------------------------------------
+### DEPLOY LAN SEGMENT IN CSO
+### ---------------------------------------------------------------------------
+- name: sleep for 30 seconds and continue with play
+  wait_for:
+    timeout: 30
+  delegate_to: localhost
+
+- name: deploy the LAN segment
+  uri:
+    url: https://contrail-juniper.net/tssm/deploy-lan-segments
+    method: POST
+    headers:
+      x-auth-token: "{{ token }}"
+    body: "{{ lan_deploy | to_json }}"
+    body_format: json
+    status_code: 200
