@@ -1,0 +1,33 @@
+### ---------------------------------------------------------------------------
+### BUILD PAYLOAD FOR SITE
+### ---------------------------------------------------------------------------
+- name: "Create a JSON payload with site details"
+  template:
+    src: mist_configure_switch.j2
+    dest: /var/tmp/mist_configure_switch.yml
+    mode: 0640
+
+- name: Remove blank lines between matches
+  lineinfile:
+    path: /var/tmp/mist_configure_switch.yml
+    regexp: '(^\s*$)'
+    state: absent
+
+- name: "set yaml file to yaml_config var"
+  set_fact:
+    yaml_config: "{{ lookup('file','/var/tmp/mist_configure_switch.yml') | from_yaml }}"
+
+### ---------------------------------------------------------------------------
+### PUSH CONFIGURATION TO MIST
+### ---------------------------------------------------------------------------
+- name: Send updated switch configuration
+  uri:
+    url: "https://{{ mist_wired.base_url }}/sites/{{ mist_wired.id_site }}/devices/{{ mist_wired.id_device }}"
+    headers:
+      Authorization: "Token {{ mist_wired.api_token }}"
+    return_content: yes
+    status_code: 200
+    method: PUT
+    body: "{{ yaml_config | to_json }}"
+    body_format: json
+  register: configure_switch
