@@ -1,0 +1,45 @@
+---
+  ### ---------------------------------------------------------------------------
+  ### CREATE AN SDWAN SITE IN CSO
+  ### ---------------------------------------------------------------------------
+  - hosts: localhost
+    connection: local
+    gather_facts: False
+    become: False
+    any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+    vars:
+      lan_config:
+        input:
+          tenant_name: Ampersand
+          devices:
+            - device_name: Seattle
+              lan_segment:
+                - lan_segment_name: test
+                  lan_segment_type: direct
+                  vlan: 15
+                  department: Default
+                  ip_prefix: 10.44.15.1/24
+                  dhcp: true
+                  additional_config:
+                    dhcp:
+                      range_low: 10.44.15.11
+                      range_high: 10.44.15.111
+                      max_lease_time: 86400
+                      name_server:
+                        - 1.1.1.1
+                        - 8.8.8.8
+                      subnet: 10.44.15.1/24
+                  lan_ports:
+                    - LAN_1
+    roles:
+      - { role: cso_auth }
+    tasks:
+      - name: build LAN segment
+        uri:
+          url: https://contrail-juniper.net/tssm/add-lan-segments
+          method: POST
+          headers:
+            x-auth-token: "{{ token }}"
+          body: "{{ lan_config | to_json }}"
+          body_format: json
+          status_code: 200
