@@ -1,0 +1,36 @@
+### ---------------------------------------------------------------------------
+### BUILD PAYLOAD FOR SITE
+### ---------------------------------------------------------------------------
+- name: "Create a JSON payload with site details"
+  template:
+    src: mist_configure_wlan.j2
+    dest: /var/tmp/mist_configure_wlan.yml
+    mode: 0640
+
+- name: Remove blank lines between matches
+  lineinfile:
+    path: /var/tmp/mist_configure_wlan.yml
+    regexp: '(^\s*$)'
+    state: absent
+
+- name: "set yaml file to yaml_config var"
+  set_fact:
+    yaml_config: "{{ lookup('file','/var/tmp/mist_configure_wlan.yml') | from_yaml }}"
+
+- name: "debug"
+  debug:
+    msg: "{{ yaml_config }}"
+
+### ---------------------------------------------------------------------------
+### PUSH CONFIGURATION TO MIST
+### ---------------------------------------------------------------------------
+- name: Create new WLAN
+  uri:
+    url: "https://{{ mist_wired.base_url }}/sites/{{ mist_wired.id_site }}/wlans"
+    headers:
+      Authorization: "Token {{ mist_wired.api_token }}"
+    return_content: yes
+    status_code: 200
+    method: PUT
+    body: "{{ yaml_config | to_json }}"
+    body_format: json

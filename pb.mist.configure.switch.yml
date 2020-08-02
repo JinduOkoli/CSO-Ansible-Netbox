@@ -8,6 +8,7 @@
     become: False
     roles:
       ### ---------------------------------------------------------------------------
-      ### Mist Wireless work  
+      ### Mist work  
       ### ---------------------------------------------------------------------------
       - { role: mist_configure_switch }
+      - { role: mist_configure_wlan }

@@ -1,0 +1,14 @@
+#jinja2: lstrip_blocks: "True (or False)", trim_blocks: "True (or False)"
+---
+ssid: {{ snow_ssid_name }}
+enabled: true
+auth:
+  type: psk
+  psk: {{ snow_ssid_psk }}
+  multi_psk_only: false
+band: both
+band_steer: false
+band_steer_force_band5: false
+hide_ssid: false
+vlan_enabled: true
+vlan_id: {{ snow_network_vlan_id }}
