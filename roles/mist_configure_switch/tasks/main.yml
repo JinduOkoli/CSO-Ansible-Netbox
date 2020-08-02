@@ -1,7 +1,7 @@
 ### ---------------------------------------------------------------------------
 ### BUILD PAYLOAD FOR SITE
 ### ---------------------------------------------------------------------------
-- name: "Create a JSON payload with site details"
+- name: "Create a YAML payload with site details"
   template:
     src: mist_configure_switch.j2
     dest: /var/tmp/mist_configure_switch.yml
