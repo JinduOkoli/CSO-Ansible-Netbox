@@ -8,17 +8,15 @@
     become: False
     any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
     tasks:
-      ### ---------------------------------------------------------------------------
-      ### Configure EX switch  
-      ### ---------------------------------------------------------------------------
-      - name: Update the configurations within Netbox
+      # ### Configure EX switch  
+      - name: Send updated switch configuration
         uri:
           url: "{{ mist.baseurl }}/v1/sites/{{ mist.id_site }}/devices/{{ mist.id_device }}"
           headers:
-            Authorization: "token {{ mist.api_token }}"
+            Authorization: "Token {{ mist.api_token }}"
           return_content: yes
-          status_code: 201
-          method: POST
+          status_code: 200
+          method: PUT
           body: "{{ mist_wired_config | to_json }}"
           body_format: json
         register: response
