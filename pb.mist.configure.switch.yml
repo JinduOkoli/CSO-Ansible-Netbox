@@ -1,0 +1,27 @@
+---
+  ### ---------------------------------------------------------------------------
+  ### USES MIST'S API TO UPDATE THE CONFIGURATION OF A MANAGED SWITCH
+  ### ---------------------------------------------------------------------------
+  - hosts: localhost
+    connection: local
+    gather_facts: False
+    become: False
+    any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+    tasks:
+      ### ---------------------------------------------------------------------------
+      ### Configure EX switch  
+      ### ---------------------------------------------------------------------------
+      - name: Update the configurations within Netbox
+        uri:
+          url: "{{ mist.baseurl }}/v1/sites/{{ mist.id_site }}/devices/{{ mist.id_device }}"
+          headers:
+            Authorization: "token {{ mist.api_token }}"
+          return_content: yes
+          status_code: 201
+          method: POST
+          body: "{{ mist_wired_config | to_json }}"
+          body_format: json
+        register: response
+      
+      - debug:
+          msg: "{{ response }}"

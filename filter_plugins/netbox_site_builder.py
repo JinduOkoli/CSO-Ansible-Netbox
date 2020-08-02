@@ -23,7 +23,6 @@ class FilterModule(object):
         company = value['company']
         phone = value['phone_w']
         domain = value['domain']
-        url = value['url']
 
         site = {
             "name": site_name,

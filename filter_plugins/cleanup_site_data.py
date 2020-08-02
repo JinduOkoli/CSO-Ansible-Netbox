@@ -27,5 +27,6 @@ class FilterModule(object):
             site["contact_name"] = each["contact_name"]
             site["contact_phone"] = each["contact_phone"]
             site["contact_email"] = each["contact_email"]
+            # site["zip_code"] = each["zip_code"]
         
         return site
