@@ -70,9 +70,9 @@ switch:
           usage: uplink
         - name: ge-0/0/2
           usage: employee
-        - name: ge-0/0/4-6
+        - name: ge-0/0/4,ge-0/0/6
           usage: vmware
-        - name: ge-0/0/7-9
+        - name: ge-0/0/8
           usage: pci
         - name: ge-0/0/10
           usage: ap
