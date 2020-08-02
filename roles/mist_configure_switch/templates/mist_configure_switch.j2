@@ -150,7 +150,6 @@ port_config:
   {% if snow_port_config_name is defined and snow_port_config_name|length > 0 %}
   {{ snow_port_config_name }}:
     usage: {{ snow_port_config_usage }}
-  {% endfor %}
   {% endif %}
 
 additional_config_cmds:
