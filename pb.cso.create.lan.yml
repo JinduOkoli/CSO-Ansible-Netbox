@@ -8,6 +8,13 @@
     become: False
     any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
     vars:
+      lan_deploy:
+        input:
+          tenant_name: Ampersand
+          devices:
+            - device_name: Seattle
+              lan_segment:
+                - test
       lan_config:
         input:
           tenant_name: Ampersand
@@ -41,5 +48,20 @@
           headers:
             x-auth-token: "{{ token }}"
           body: "{{ lan_config | to_json }}"
+          body_format: json
+          status_code: 200
+
+      - name: sleep for 120 seconds and continue with play
+        wait_for:
+          timeout: 120
+        delegate_to: localhost
+
+      - name: deploy the LAN segment
+        uri:
+          url: https://contrail-juniper.net/tssm/deploy-lan-segments
+          method: POST
+          headers:
+            x-auth-token: "{{ token }}"
+          body: "{{ lan_deploy | to_json }}"
           body_format: json
           status_code: 200
