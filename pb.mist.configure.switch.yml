@@ -6,20 +6,19 @@
     connection: local
     gather_facts: False
     become: False
-    any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
     tasks:
-      # ### Configure EX switch  
+      ### Configure EX switch  
       - name: Send updated switch configuration
         uri:
-          url: "{{ mist.baseurl }}/v1/sites/{{ mist.id_site }}/devices/{{ mist.id_device }}"
+          url: "https://{{ mist_wired.base_url }}/sites/{{ mist_wired.id_site }}/devices/{{ mist_wired.id_device }}"
           headers:
-            Authorization: "Token {{ mist.api_token }}"
+            Authorization: "Token {{ mist_wired.api_token }}"
           return_content: yes
           status_code: 200
           method: PUT
           body: "{{ mist_wired_config | to_json }}"
           body_format: json
         register: response
-      
+
       - debug:
           msg: "{{ response }}"

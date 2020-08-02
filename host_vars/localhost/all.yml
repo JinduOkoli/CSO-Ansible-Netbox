@@ -81,10 +81,12 @@ mist_wired_config:
       usage: employee
     ge-0/0/4-6:
       usage: vmware
+    ge-0/0/7-9:
+      usage: pci
     ge-0/0/10:
       usage: ap
   additional_config_cmds:
-  - set system domain-name network.home
-  - set system name-server 10.6.6.20
-  - set system name-server 10.6.6.21
+    - set system domain-name network.home
+    - set system name-server 10.6.6.20
+    - set system name-server 10.6.6.21
   name: seattle-sw1
