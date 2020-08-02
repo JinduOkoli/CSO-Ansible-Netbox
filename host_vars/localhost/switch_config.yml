@@ -80,4 +80,4 @@ switch:
         - set system domain-name network.home
         - set system name-server 10.6.6.20
         - set system name-server 10.6.6.21
-    name: seattle-switch1
+    name: seattle-sw1
