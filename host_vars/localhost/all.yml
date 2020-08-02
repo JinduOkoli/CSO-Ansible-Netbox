@@ -1,0 +1,90 @@
+---
+mist_wired_config:
+  oob_ip_config:
+    type: dhcp
+    network: default
+  networks:
+    Management:
+      vlan_id: '12'
+    Employee:
+      vlan_id: '11'
+    Guest:
+      vlan_id: '13'
+    PCI:
+      vlan_id: '14'
+  port_usages:
+    ap:
+      port_network: default
+      disabled: false
+      port_auth: 
+      mode: trunk
+      stp_edge: true
+      isOverrider: true
+      networks: []
+      all_networks: true
+      name: ap
+    default:
+      port_network: Guest
+      all_networks: false
+      port_auth: 
+      mode: access
+      stp_edge: true
+      networks: []
+      name: default
+      disabled: false
+    pci:
+      port_network: PCI
+      all_networks: false
+      port_auth: 
+      mode: access
+      stp_edge: true
+      networks: []
+      name: pci
+      disabled: false
+    uplink:
+      port_network: default
+      disabled: false
+      port_auth: 
+      mode: trunk
+      stp_edge: true
+      networks: []
+      all_networks: true
+      name: uplink
+    vmware:
+      port_network: default
+      all_networks: true
+      port_auth: 
+      mode: trunk
+      stp_edge: true
+      networks: []
+      name: vmware
+      disabled: false
+    employee:
+      port_network: Employee
+      all_networks: false
+      port_auth: 
+      mode: access
+      stp_edge: true
+      networks: []
+      name: employee
+      disabled: false
+  notes: ''
+  managed: true
+  ip_config:
+    type: dhcp
+    network: Management
+  role: ''
+  port_config:
+    ge-0/0/0:
+      usage: uplink
+    ge-0/0/2:
+      usage: employee
+    ge-0/0/4-6:
+      usage: vmware
+    ge-0/0/10:
+      usage: ap
+  additional_config_cmds:
+  - set system domain-name network.home
+  - set system name-server 10.6.6.20
+  - set system name-server 10.6.6.21
+  name: seattle-sw1
