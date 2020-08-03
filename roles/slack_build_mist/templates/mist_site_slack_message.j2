@@ -1,33 +1,57 @@
 {
-    "text": "Ansible Tower has created a new WLAN site",
     "blocks": [
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "Ansible Tower has created a new WLAN site:"
-            }
-        },
-        {
-            "type": "section",
-            "block_id": "section567",
-            "text": {
-                "type": "mrkdwn",
-                "text": "<https://manage.mist.com/admin/?org_id={{ mist.orgid }}#!configuration/site/{{ site_id }}|{{ cleaned_site_name }}> \n :star: \n {{ mist.address }}, {{ mist.country_code }}"
-            },
-            "accessory": {
-                "type": "image",
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": ":signal_strength:  New Wireless Site and WLAN created  :signal_strength:"
+			}
+		},
+		{
+			"type": "context",
+			"elements": [
+				{
+					"text": "*Network Operations Bot* :robot_face:  |  Network change",
+					"type": "mrkdwn"
+				}
+			]
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": " :paperclip: *Site Details*"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*Site Name*: <https://manage.mist.com/admin/?org_id={{ mist.orgid }}#!configuration/site/{{ site_id }}|{{ cleaned_site_name }}> \n :star: \n {{ mist.address }}, {{ mist.country_code }}"
+			},
+			"accessory": {
+				"type": "image",
                 "image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/mist.png",
-                "alt_text": "Mist Wireless"
-            }
+				"alt_text": "Juniper Mist"
+			}
         },
+		{
+			"type": "divider"
+		},
         {
             "type": "section",
             "block_id": "section789",
             "fields": [
                 {
                     "type": "mrkdwn",
-                    "text": "*Data SSID:*:\nname: `{{ cleaned_site_name }}-wlan1`"
+                    "text": "*Site Name:*:\n :white_small_square: name: `{{ cleaned_site_name }}`"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": "*Data SSID:*:\n :white_small_square: name: `{{ cleaned_site_name }}-wlan1`"
                 }
             ]
         }
