@@ -24,7 +24,7 @@
 ### ---------------------------------------------------------------------------
 ### PUSH CONFIGURATION TO MIST
 ### ---------------------------------------------------------------------------
-- name: Isolate a site
+- name: Recover a site
   uri:
     url: "https://{{ mist_wired.base_url }}/sites/{{ mist_wired.id_site }}/devices/{{ mist_wired.id_device }}"
     headers:
