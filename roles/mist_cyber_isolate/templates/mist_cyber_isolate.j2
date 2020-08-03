@@ -19,7 +19,7 @@ port_usages:
 
     {# disabled port #}
     {% if each.disabled is defined %}
-    disabled: true
+    disabled: {{ each.disabled }}
     {% else %}
     disabled: true
     {% endif %}
