@@ -87,8 +87,10 @@ additional_config_cmds:
   - {{ each }}
   {% endfor %}
 
-{% if isolate.name is defined %}
-name: {{ isolate.name }}
+{% if snow_site_name is defined and snow_site_name|length > 0 %}
+name: cyber-{{ snow_site_name }}
+{% elif switch.name is defined %}
+name: {{ switch.name }}
 {% else %}
 name: test-sw1
 {% endif %}
