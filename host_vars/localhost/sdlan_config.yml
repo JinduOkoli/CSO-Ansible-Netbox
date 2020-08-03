@@ -13,7 +13,7 @@ lan_config:
         lan_segment:
           - lan_segment_name: "{{ snow_network_name }}"
             lan_segment_type: direct
-            vlan: "{{ snow_network_vlan_id }}"
+            vlan: {{ snow_network_vlan_id }}
             department: Default
             ip_prefix: "{{ snow_ip_prefix }}"
             dhcp: true
