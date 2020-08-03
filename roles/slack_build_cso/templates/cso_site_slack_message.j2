@@ -1,45 +1,65 @@
 {
-    "text": "Ansible Tower has created a new SD-WAN site",
     "blocks": [
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "Ansible Tower has created a new SD-WAN site:"
-            }
-        },
-        {
-            "type": "section",
-            "block_id": "section567",
-            "text": {
-                "type": "mrkdwn",
-                "text": "<https://contrail-juniper.net/site/site_management|{{ cleaned_site_name }}> \n :star: \n {{ site_data.street_address }} \n{{ site_data.city }}, {{ site_data.state }}\n{{ site_data.country }}"
-            },
-            "accessory": {
-                "type": "image",
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": ":signal_strength:  New SD-WAN created  :signal_strength:"
+			}
+		},
+		{
+			"type": "context",
+			"elements": [
+				{
+					"text": "*Network Operations Bot* :robot_face:  |  Network change",
+					"type": "mrkdwn"
+				}
+			]
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": " :paperclip: *Site Details*"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":star:<https://contrail-juniper.net/site/site_management|{{ cleaned_site_name }}>:star:\n:white_small_square: *Street Address:*: `{{ site_data.street_address }}`\n:white_small_square: *City, State:*: `{{ site_data.city }}, {{ site_data.state }}`\n:white_small_square: *Country:*: `{{ site_data.country }}`\n"
+			},
+			"accessory": {
+				"type": "image",
                 "image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/juniper_burst_icon.png",
-                "alt_text": "Juniper SD-WAN"
-            }
+				"alt_text": "Juniper SD-LAN"
+			}
         },
+		{
+			"type": "divider"
+		},
         {
             "type": "section",
             "block_id": "section789",
             "fields": [
                 {
                     "type": "mrkdwn",
-                    "text": "*Data VRF:*:\nname: `{{ site_prefixes.data.vrf }}`\nprefix: `{{ device_prefixes.data.address }}`"
+                    "text": "*Data VRF:*\n :white_small_square: name: `{{ site_prefixes.data.vrf }}`\n :white_small_square: prefix: `{{ device_prefixes.data.address }}`"
                 },
                 {
                     "type": "mrkdwn",
-                    "text": "*Voice VRF:*:\nname: `{{ site_prefixes.voice.vrf }}`\nprefix: `{{ device_prefixes.voice.address }}`"
+                    "text": "*Voice VRF:*\n :white_small_square: name: `{{ site_prefixes.voice.vrf }}`\n :white_small_square: prefix: `{{ device_prefixes.voice.address }}`"
                 },
                 {
                     "type": "mrkdwn",
-                    "text": "*IOT VRF:*:\nname: `{{ site_prefixes.iot.vrf }}`\nprefix: `{{ device_prefixes.iot.address }}`"
+                    "text": "*IOT VRF:*\n :white_small_square: name: `{{ site_prefixes.iot.vrf }}`\n :white_small_square: prefix: `{{ device_prefixes.iot.address }}`"
                 },
                 {
                     "type": "mrkdwn",
-                    "text": "*PCI VRF:*:\nname: `{{ site_prefixes.pci.vrf }}`\nprefix: `{{ device_prefixes.pci.address }}`"
+                    "text": "*PCI VRF:*\n :white_small_square: name: `{{ site_prefixes.pci.vrf }}`\n :white_small_square: prefix: `{{ device_prefixes.pci.address }}`"
                 }
             ]
         }
