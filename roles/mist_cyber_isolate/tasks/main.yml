@@ -1,29 +1,37 @@
 ### ---------------------------------------------------------------------------
 ### BUILD PAYLOAD FOR SITE
 ### ---------------------------------------------------------------------------
-- name: "Create a JSON payload with site details"
+- name: "Create a YAML payload with site details"
   template:
-    src: mist_build_site.j2
-    dest: /var/tmp/mist_build_site.json
+    src: mist_cyber_isolate.j2
+    dest: /var/tmp/mist_cyber_isolate.yml
     mode: 0640
 
-### ---------------------------------------------------------------------------
-### CREATE SITE IN MIST
-### ---------------------------------------------------------------------------
-- name: "Create a new site in Mist"
-  uri:
-    url: "{{ mist.baseurl }}/v1/orgs/{{ mist.orgid }}/sites"
-    method: POST
-    return_content: yes
-    status_code: "200"
-    headers:
-      Content-Type: "application/json"
-      Authorization: "Token {{ mist.apitoken }}"
-    body: "{{ lookup('file','/var/tmp/mist_build_site.json') }}"
-    force_basic_auth: yes
-    body_format: json
-  register: create_site
+- name: Remove blank lines between matches
+  lineinfile:
+    path: /var/tmp/mist_cyber_isolate.yml
+    regexp: '(^\s*$)'
+    state: absent
 
-- name: "setting site_id variable"
+- name: "set yaml file to yaml_config var"
   set_fact:
-    site_id: "{{ create_site.json.id }}"
+    yaml_config: "{{ lookup('file','/var/tmp/mist_cyber_isolate.yml') | from_yaml }}"
+
+- name: "debug"
+  debug:
+    msg: "{{ yaml_config }}"
+
+### ---------------------------------------------------------------------------
+### PUSH CONFIGURATION TO MIST
+### ---------------------------------------------------------------------------
+- name: Isolate a site
+  uri:
+    url: "https://{{ mist_wired.base_url }}/sites/{{ mist_wired.id_site }}/devices/{{ mist_wired.id_device }}"
+    headers:
+      Authorization: "Token {{ mist_wired.api_token }}"
+    return_content: yes
+    status_code: 200
+    method: PUT
+    body: "{{ yaml_config | to_json }}"
+    body_format: json
+  register: configure_switch

@@ -1,0 +1,94 @@
+#jinja2: lstrip_blocks: "True (or False)", trim_blocks: "True (or False)"
+---
+oob_ip_config:
+  type: dhcp
+  network: default
+networks:
+  {# networks from Ansible playbook #}
+  {% for each in isolate.networks %}
+  {{ each.name }}:
+    vlan_id: {{ each.vlan_id }}
+  {% endfor %}
+
+port_usages:
+  {# port profiles from Ansible project #}
+  {% for each in isolate.port_profiles %}
+  {{ each.name }}:
+    {# VLAN configuration #}
+    port_network: {{ each.port_network }}
+
+    {# disabled port #}
+    {% if each.disabled is defined %}
+    disabled: true
+    {% else %}
+    disabled: true
+    {% endif %}
+
+    {# port authentication #}
+    {% if each.port_auth is defined %}
+    port_auth: {{ each.port_auth }}
+    {% else %}
+    port_auth:
+    {% endif %}
+
+    {# trunk or access #}
+    {% if each.mode is defined %}
+    mode: {{ each.mode }}
+    {% else %}
+    mode: access
+    {% endif %}
+
+    {# spanning tree edge port #}
+    {% if each.stp_edge is defined %}
+    stp_edge: {{ each.stp_edge }}
+    {% else %}
+    stp_edge: true
+    {% endif %}
+
+    {# override site template #}
+    {% if each.isOverrider is defined %}
+    isOverrider: true
+    {% endif %}
+
+    {# networks #}
+    {% if each.networks is defined %}
+    networks: {{ each.networks }}
+    {% else %}
+    networks: []
+    {% endif %}
+
+    {# trunk all networks #}
+    {% if each.all_networks is defined %}
+    all_networks: {{ each.all_networks }}
+    {% else %}
+    all_networks: false
+    {% endif %}
+
+    {# name #}
+    name: {{ each.name }}
+  {% endfor %}
+
+notes: ""
+managed: true
+ip_config:
+  type: dhcp
+  network: Management
+role: ""
+port_config:
+  {# port config from Ansible project #}
+  {% for each in isolate.port_config %}
+  {{ each.name }}:
+    usage: {{ each.usage }}
+  {% endfor %}
+
+additional_config_cmds:
+  {# additional_config_cmds from Ansible project #}
+  {% for each in isolate.additional_config_cmds %}
+  - {{ each }}
+  {% endfor %}
+
+{% if isolate.name is defined %}
+name: {{ isolate.name }}
+{% else %}
+name: test-sw1
+{% endif %}

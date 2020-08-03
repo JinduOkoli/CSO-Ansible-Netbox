@@ -1,11 +1,171 @@
-{
-  "rftemplate_id": "{{ mist.rf_template_id }}",
-  "latlng": {
-    "lat": "{{ mist.lat }}",
-    "lng": "{{ mist.long }}"
-  },
-  "address": "{{ mist.address }}",
-  "timezone": "{{ mist.timezone }}",
-  "country_code": "{{ mist.country_code }}",
-  "name": "{{ cleaned_site_name }}"
-}
+#jinja2: lstrip_blocks: "True (or False)", trim_blocks: "True (or False)"
+---
+oob_ip_config:
+  type: dhcp
+  network: default
+networks:
+  {# networks from Ansible playbook #}
+  {% for each in switch.networks %}
+  {{ each.name }}:
+    vlan_id: {{ each.vlan_id }}
+  {% endfor %}
+
+  {# networks from ServiceNow #}
+  {% if snow_network_name is defined and snow_network_name|length > 0 %}
+  {{ snow_network_name }}:
+    vlan_id: {{ snow_network_vlan_id }}
+  {% endif %}
+
+port_usages:
+  {# port profiles from Ansible project #}
+  {% for each in switch.port_profiles %}
+  {{ each.name }}:
+    {# VLAN configuration #}
+    port_network: {{ each.port_network }}
+
+    {# disabled port #}
+    {% if each.disabled is defined %}
+    disabled: {{ each.disabled }}
+    {% else %}
+    disabled: false
+    {% endif %}
+
+    {# port authentication #}
+    {% if each.port_auth is defined %}
+    port_auth: {{ each.port_auth }}
+    {% else %}
+    port_auth:
+    {% endif %}
+
+    {# trunk or access #}
+    {% if each.mode is defined %}
+    mode: {{ each.mode }}
+    {% else %}
+    mode: access
+    {% endif %}
+
+    {# spanning tree edge port #}
+    {% if each.stp_edge is defined %}
+    stp_edge: {{ each.stp_edge }}
+    {% else %}
+    stp_edge: true
+    {% endif %}
+
+    {# override site template #}
+    {% if each.isOverrider is defined %}
+    isOverrider: true
+    {% endif %}
+
+    {# networks #}
+    {% if each.networks is defined %}
+    networks: {{ each.networks }}
+    {% else %}
+    networks: []
+    {% endif %}
+
+    {# trunk all networks #}
+    {% if each.all_networks is defined %}
+    all_networks: {{ each.all_networks }}
+    {% else %}
+    all_networks: false
+    {% endif %}
+
+    {# name #}
+    name: {{ each.name }}
+  {% endfor %}
+
+  {# port profiles from ServiceNow #}
+  {% if snow_port_profile_name is defined and snow_port_profile_name|length > 0 %}
+  {{ snow_port_profile_name }}:
+    {# port profiles from Ansible playbook #}
+    {# VLAN configuration #}
+    port_network: {{ snow_port_profile_port_network }}
+
+    {# disabled port #}
+    {% if snow_port_profile_disabled is defined and snow_port_profile_disabled|length > 0 %}
+    disabled: {{ snow_port_profile_disabled }}
+    {% else %}
+    disabled: false
+    {% endif %}
+
+    {# port authentication #}
+    {% if snow_port_profile_port_auth is defined and snow_port_profile_port_auth|length > 0 %}
+    port_auth: {{ snow_port_profile_port_auth }}
+    {% else %}
+    port_auth:
+    {% endif %}
+
+    {# trunk or access #}
+    {% if snow_port_profile_mode is defined and snow_port_profile_mode|length > 0 %}
+    mode: {{ snow_port_profile_mode }}
+    {% else %}
+    mode: access
+    {% endif %}
+
+    {# spanning tree edge port #}
+    {% if snow_port_profile_stp_edge is defined and snow_port_profile_stp_edge|length > 0 %}
+    stp_edge: {{ snow_port_profile_stp_edge }}
+    {% else %}
+    stp_edge: true
+    {% endif %}
+
+    {# override site template #}
+    {% if snow_port_profile_isOverrider is defined and snow_port_profile_isOverrider|length > 0 %}
+    isOverrider: true
+    {% endif %}
+
+    {# networks #}
+    {% if snow_port_profile_networks is defined and snow_port_profile_networks|length > 0 %}
+    networks: {{ snow_port_profile_networks }}
+    {% else %}
+    networks: []
+    {% endif %}
+
+    {# trunk all networks #}
+    {% if snow_port_profile_all_networks is defined and snow_port_profile_all_networks|length > 0 %}
+    all_networks: {{ snow_port_profile_all_networks }}
+    {% else %}
+    all_networks: false
+    {% endif %}
+
+    {# name #}
+    name: {{ snow_port_profile_name }}
+  {% endif %}
+
+notes: ""
+managed: true
+ip_config:
+  type: dhcp
+  network: Management
+role: ""
+port_config:
+  {# port config from Ansible project #}
+  {% for each in switch.port_config %}
+  {{ each.name }}:
+    usage: {{ each.usage }}
+  {% endfor %}
+
+  {# port config from SNOW #}
+  {% if snow_port_config_name is defined and snow_port_config_name|length > 0 %}
+  {{ snow_port_config_name }}:
+    usage: {{ snow_port_config_usage }}
+  {% endif %}
+
+additional_config_cmds:
+  {# additional_config_cmds from Ansible project #}
+  {% for each in switch.additional_config_cmds %}
+  - {{ each }}
+  {% endfor %}
+
+  {# additional_config_cmds from SNOW #}
+  {% if snow_additional_config_cmds is defined and snow_additional_config_cmds|length > 0 %}
+  - {{ snow_additional_config_cmds }}
+  {% endif %}
+
+{% if snow_switch_name is defined and snow_switch_name|length > 0 %}
+name: {{ snow_switch_name }}
+{% elif switch.name is defined %}
+name: {{ switch.name }}
+{% else %}
+name: test-sw1
+{% endif %}
