@@ -1,0 +1,47 @@
+{
+    "text": "Ansible Tower has created a new SD-LAN",
+    "blocks": [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Ansible Tower has created a new SD-LAN for site: {{ snow_site_name }}"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "section567",
+            "text": {
+                "type": "mrkdwn",
+                "text": "<https://contrail-juniper.net/site/site_management|{{ snow_site_name }}> \n :star:"
+            },
+            "accessory": {
+                "type": "image",
+                "image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/juniper_burst_icon.png",
+                "alt_text": "Juniper SD-LAN"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "section789",
+            "fields": [
+                {
+                    "type": "mrkdwn",
+                    "text": "*Network Name:*: `{{ snow_network_name }}`"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": "*VLAN ID:*: `{{ snow_network_vlan_id }}`"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": "*Wireless Network Name:*: `{{ snow_ssid_name }}`"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": "*IP Prefix:*: `{{ snow_ip_prefix }}`"
+                }
+            ]
+        }
+    ]
+}
