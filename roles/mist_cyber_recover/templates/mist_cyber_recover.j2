@@ -163,7 +163,7 @@ additional_config_cmds:
   {% endif %}
 
 {% if snow_site_name is defined and snow_site_name|length > 0 %}
-name: {{ snow_site_name }}-sw1
+name: {{ snow_site_name }}
 {% elif switch.name is defined %}
 name: {{ switch.name }}
 {% else %}
