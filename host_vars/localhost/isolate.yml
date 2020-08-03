@@ -31,7 +31,7 @@ isolate:
           stp_edge: true
           networks: []
           all_networks: true
-    notes: ''
+    notes: 'under cyber security event'
     managed: true
     ip_config:
         type: dhcp
