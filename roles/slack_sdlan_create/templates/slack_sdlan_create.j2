@@ -1,46 +1,42 @@
 {
-    "blocks": [
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "Ansible Tower has created a new SD-LAN for site: {{ snow_site_name }}"
-            }
-        },
-        {
-            "type": "section",
-            "block_id": "section567",
-            "text": {
-                "type": "mrkdwn",
-                "text": "<https://contrail-juniper.net/site/site_management|{{ snow_site_name }}> \n :star:"
-            },
-            "accessory": {
-                "type": "image",
-                "image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/network_icon.png",
-                "alt_text": "Juniper SD-LAN"
-            }
-        },
-        {
-            "type": "section",
-            "block_id": "section789",
-            "fields": [
-                {
-                    "type": "mrkdwn",
-                    "text": "*Network Name:*: `{{ snow_network_name }}`"
-                },
-                {
-                    "type": "mrkdwn",
-                    "text": "*VLAN ID:*: `{{ snow_network_vlan_id }}`"
-                },
-                {
-                    "type": "mrkdwn",
-                    "text": "*Wireless Network Name:*: `{{ snow_ssid_name }}`"
-                },
-                {
-                    "type": "mrkdwn",
-                    "text": "*IP Prefix:*: `{{ snow_ip_prefix }}`"
-                }
-            ]
-        }
-    ]
+	"blocks": [
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": ":signal_strength:  New SD-LAN created  :signal_strength:"
+			}
+		},
+		{
+			"type": "context",
+			"elements": [
+				{
+					"text": "*Network Operations Bot* :robot_face:  |  Network change",
+					"type": "mrkdwn"
+				}
+			]
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": " :paperclip: *Network Details*"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":white_small_square: *Name:*: `{{ snow_network_name }}1`\n:white_small_square: *VLAN ID:*: `{{ snow_network_vlan_id }}`\n:white_small_square: *SSID:*: `{{ snow_ssid_name }}`\n:white_small_square: *IP Prefix:*: `{{ snow_ip_prefix }}`"
+			},
+			"accessory": {
+				"type": "image",
+				"image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/network_icon.png",
+				"alt_text": "Juniper SD-LAN"
+			}
+		}
+	]
 }
