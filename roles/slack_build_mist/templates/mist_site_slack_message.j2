@@ -1,5 +1,5 @@
 {
-    "blocks": [
+	"blocks": [
 		{
 			"type": "header",
 			"text": {
@@ -30,26 +30,16 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "*Site Name*: <https://manage.mist.com/admin/?org_id={{ mist.orgid }}#!configuration/site/{{ site_id }}|{{ cleaned_site_name }}> \n {{ mist.address }}, {{ mist.country_code }}"
+				"text": "*Site Name*: <https://manage.mist.com/admin/?org_id={{ mist.orgid }}#!configuration/site/{{ site_id }}|{{ cleaned_site_name }}> \n :white_small_square:  {{ mist.address }}, {{ mist.country_code }}\n*Data SSID:*:\n :white_small_square: name: `{{ cleaned_site_name }}-wlan1`"
 			},
 			"accessory": {
 				"type": "image",
-                "image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/mist.png",
+				"image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/mist.png",
 				"alt_text": "Juniper Mist"
 			}
-        },
+		},
 		{
 			"type": "divider"
-		},
-        {
-            "type": "section",
-            "block_id": "section789",
-            "fields": [
-                {
-                    "type": "mrkdwn",
-                    "text": "*Data SSID:*:\n :white_small_square: name: `{{ cleaned_site_name }}-wlan1`"
-                }
-            ]
-        }
-    ]
+		}
+	]
 }
