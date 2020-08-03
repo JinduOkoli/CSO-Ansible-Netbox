@@ -20,6 +20,6 @@
       - { role: mist_configure_switch }
       - { role: mist_configure_wlan }
       ### ---------------------------------------------------------------------------
-      ### MIST WORK
+      ### COMMUNICATE WITH THE TEAM
       ### ---------------------------------------------------------------------------
       - { role: slack_sdlan_create }
