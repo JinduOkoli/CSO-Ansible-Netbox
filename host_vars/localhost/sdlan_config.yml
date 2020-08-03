@@ -1,13 +1,13 @@
 lan_deploy:
   input:
-    tenant_name: Ampersand
+    tenant_name: "{{ tenant_name }}"
     devices:
       - device_name: "{{ snow_site_name }}"
         lan_segment:
           - "{{ snow_network_name }}"
 lan_config:
   input:
-    tenant_name: Ampersand
+    tenant_name: "{{ tenant_name }}"
     devices:
       - device_name: "{{ snow_site_name }}"
         lan_segment:
