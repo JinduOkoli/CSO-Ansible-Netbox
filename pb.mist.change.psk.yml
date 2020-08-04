@@ -1,0 +1,27 @@
+---
+  ### ---------------------------------------------------------------------------
+  ### CREATE A TON OF SITES IN MIST
+  ### ---------------------------------------------------------------------------
+  - hosts: localhost
+    connection: local
+    gather_facts: False
+    become: False
+    tasks:
+      ### ---------------------------------------------------------------------------
+      ### CHANGE A CONFIGURATION TEMPLATE'S PSK
+      ### ---------------------------------------------------------------------------
+      - name: "Change the PSK of a WLAN"
+        uri:
+          url: "https://{{ mist_wired.base_url }}/orgs/{{ mist_wired.id_org }}/wlans/{{ snow_ssid_id }}"
+          method: PUT
+          return_content: yes
+          status_code: "200"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Token {{ mist_wired.api_token }}"
+          body: 
+            auth: 
+              type: psk
+              psk: "{{ snow_ssid_psk }}"
+          force_basic_auth: yes
+          body_format: json
