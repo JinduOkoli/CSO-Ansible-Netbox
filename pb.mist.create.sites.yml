@@ -37,6 +37,10 @@
             timezone: "America/Los_Angeles"
           force_basic_auth: yes
           body_format: json
+
+        when:
+          - item.name != "Seattle"
+
         loop: "{{ all_sites }}"
 
       ### ---------------------------------------------------------------------------
