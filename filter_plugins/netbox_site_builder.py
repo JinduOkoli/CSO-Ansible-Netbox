@@ -10,7 +10,8 @@ class FilterModule(object):
         name_first = value['name']
         name_last = value['maiden_name']
         name_last = name_last.lower()
-        site_name = 'site-' + name_last[-4:]
+        site_name = 'MistDemo-' + name_last[-4:]
+        slug = site_name.lower()
         latitude = value['latitude']
         latitude = str(latitude)
         latitude = latitude[:8]
@@ -26,9 +27,9 @@ class FilterModule(object):
 
         site = {
             "name": site_name,
-            "slug": name_last,
+            "slug": slug,
             "status": "active",
-            "region": 1,
+            "region": 8,
             "tenant": 1,
             "facility": company,
             "asn": random.randint(1, 65535),

@@ -1,0 +1,19 @@
+### ---------------------------------------------------------------------------
+### FIND SITE INFO
+### ---------------------------------------------------------------------------
+- name: "Site data from Netbox"
+  uri:
+    url: "{{ netbox.baseurl }}/dcim/sites"
+    method: GET
+    return_content: yes
+    status_code: "200"
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Token {{ netbox.apitoken }}"
+    force_basic_auth: yes
+    validate_certs: false
+  register: all_sites
+
+- name: "setting site_data variable"
+  set_fact:
+    all_sites: "{{ all_sites.json.results }}"

@@ -1,0 +1,45 @@
+---
+  ### ---------------------------------------------------------------------------
+  ### CREATE A TON OF SITES IN MIST
+  ### ---------------------------------------------------------------------------
+  - hosts: localhost
+    connection: local
+    gather_facts: False
+    become: False
+    tasks:
+      ### ---------------------------------------------------------------------------
+      ### DELETE SITES IN MIST
+      ### ---------------------------------------------------------------------------
+      - name: "GET Mist sites"
+        uri:
+          url: "https://{{ mist_wired.base_url }}/orgs/{{ mist_wired.id_org }}/sites"
+          method: GET
+          return_content: yes
+          status_code: "200"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Token {{ mist_wired.api_token }}"
+          force_basic_auth: yes
+          body_format: json
+        register: sites
+      
+      - name: create list
+        set_fact:
+          sites: "{{ sites.json }}"
+
+      - name: "Delete Mist sites"
+        uri:
+          url: "https://{{ mist_wired.base_url }}/sites/{{ item.id }}"
+          method: DELETE
+          return_content: yes
+          status_code: "200"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Token {{ mist_wired.api_token }}"
+          force_basic_auth: yes
+          body_format: json
+
+        when:
+          - item.name != "Seattle"
+
+        loop: "{{ sites }}"
