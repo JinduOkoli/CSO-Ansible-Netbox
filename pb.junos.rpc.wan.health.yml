@@ -29,3 +29,9 @@
 
       - set_fact:
             report_brief: "{{ iface | wan_health_cleanup_brief }}"
+
+      - debug:
+          msg: "{{ report_brief }}"
+
+      - debug:
+          msg: "{{ report }}"
