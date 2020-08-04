@@ -1,0 +1,31 @@
+---
+  ### ---------------------------------------------------------------------------
+  ### QUERY THE HEALTH OF THE WAN LINKS ON A SRX
+  ### ---------------------------------------------------------------------------
+  - name: Collect stats from the DSL and LTE interfaces and return a report to Slack
+    hosts: srx320
+    connection: local
+    gather_facts: False
+    roles:
+        - juniper.junos
+    tasks:
+
+      - name: get status of DSL interface pt-2/0/0
+        juniper_junos_rpc:
+            provider: "{{ provider_info }}"
+            rpcs: "get-interface-information"
+            format: "json"
+            kwargs: 
+              interface_name: pt-2/0/0
+              extensive: True
+            dest_dir: "./"
+        register: response
+
+      - set_fact:
+            iface: "{{ response['parsed_output']['interface-information'][0]['physical-interface'][0] }}"
+      
+      - set_fact:
+            report: "{{ iface | wan_health_cleanup }}"
+
+      - set_fact:
+            report_brief: "{{ iface | wan_health_cleanup_brief }}"
