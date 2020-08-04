@@ -8,5 +8,5 @@ all:
         SDWAN_with_vSRX:
         SDWAN_with_NFX:
         SDWAN_with_SRX_hardway:
-        srx320:
+        London:
             ansible_host: 51.241.87.42

@@ -3,7 +3,7 @@
   ### QUERY THE HEALTH OF THE WAN LINKS ON A SRX
   ### ---------------------------------------------------------------------------
   - name: Collect stats from the DSL and LTE interfaces and return a report to Slack
-    hosts: srx320
+    hosts: "{{ site_name }}"
     connection: local
     gather_facts: False
     roles:
