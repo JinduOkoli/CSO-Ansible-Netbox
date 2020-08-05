@@ -1,0 +1,42 @@
+{
+    "blocks": [
+        {
+            "type": "header",
+            "text": {
+                "type": "plain_text",
+                "text": ":signal_strength:  DSL Health Report  :signal_strength:"
+            }
+        },
+        {
+            "type": "context",
+            "elements": [
+                {
+                    "text": "*Network Operations Bot* :robot_face:  |  WAN report",
+                    "type": "mrkdwn"
+                }
+            ]
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": " :paperclip: *DSL circuit details*"
+            }
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": ":white_small_square: *Interface name:*: `{{ report_brief.name }}`\n:white_small_square: *Encapsulation:*: `{{ report_brief.logical_interface.encapsulation }}`\n:white_small_square: *Operational Status:*: `{{ report_brief.oper_status }}`\n:white_small_square: *VDSL Info:*:\n:white_small_square: *Line Profile*: `{{ report_brief.vdsl_info.line_profile }}`\n:white_small_square: *Line Status*: `{{ report_brief.vdsl_info.line_status }}`\n:white_small_square: *Seconds in Showtime*: `{{ report_brief.vdsl_info.seconds_in_showtime }}`\n:white_small_square: *VDSL Statistics*:\n:white_small_square: *Far End Attenuation*: `{{ report_brief.vdsl_statistics.far_end_attenuation }}`\n:white_small_square: *Near End Attenuation*: `{{ report_brief.vdsl_statistics.near_end_attenuation }}`\n"
+            },
+            "accessory": {
+                "type": "image",
+                "image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/network_icon.png",
+                "alt_text": "Juniper SD-LAN"
+            }
+        }
+    ]
+}
