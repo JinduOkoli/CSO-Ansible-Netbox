@@ -1,0 +1,23 @@
+### ---------------------------------------------------------------------------
+### UPDATE TEAM IN SLACK
+### ---------------------------------------------------------------------------
+- name: "Create a JSON payload with LTE health details"
+  template:
+    src: "slack_wan_health_lte_{{ detail }}.j2"
+    dest: /var/tmp/slack_wan_health_lte.json
+    mode: 0640
+  run_once: True
+
+- name: "send an update message to team on Slack"
+  uri:
+    url: "{{ slack.lte_bot }}"
+    method: POST
+    return_content: yes
+    status_code: "200"
+    headers:
+      Content-Type: "application/json"
+    body: "{{ lookup('file','/var/tmp/slack_wan_health_lte.json') }}"
+    force_basic_auth: yes
+    body_format: json
+  register: slack_message
+  run_once: True

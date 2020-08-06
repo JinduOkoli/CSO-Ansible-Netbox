@@ -1,0 +1,61 @@
+---
+  ### ---------------------------------------------------------------------------
+  ### QUERY THE HEALTH OF THE WAN LINKS ON A SRX
+  ### ---------------------------------------------------------------------------
+  - name: Collect stats from the LTE interfaces and return a report to Slack
+    hosts: "{{ site_name }}"
+    connection: local
+    gather_facts: False
+    roles:
+        - juniper.junos
+    tasks:
+
+      - name: get statistics from LTE interface dl0
+        juniper_junos_rpc:
+            provider: "{{ provider_info }}"
+            rpcs: "get-interface-information"
+            format: "json"
+            kwargs: 
+              interface_name: dl0
+              extensive: True
+            dest_dir: "./"
+        register: response_iface
+
+      - name: get status of LTE radio
+        juniper_junos_rpc:
+            provider: "{{ provider_info }}"
+            rpcs: "get-modem-wireless-network"
+            format: "json"
+            kwargs: 
+              interface_name: cl-1/1/0
+            dest_dir: "./"
+        register: response_radio
+
+      - name: get signal strength of LTE radio
+        juniper_junos_rpc:
+            provider: "{{ provider_info }}"
+            rpcs: "get-modem-wireless-rssi"
+            format: "json"
+            kwargs: 
+              interface_name: cl-1/1/0
+            dest_dir: "./"
+        register: response_rssi
+
+      - set_fact:
+            iface: "{{ response_iface['parsed_output']['interface-information'][0]['physical-interface'][0] }}"
+
+      - set_fact:
+            rssi: "{{ response_iface['parsed_output']['wwand-modem-wireless-interface-rssi'][0]['rssi'][0]['data'] }}"
+
+      - set_fact:
+            iface_report: "{{ iface | wan_health_lte_iface }}"
+
+      - set_fact:
+            lte_report: "{{ response_radio | wan_health_lte_radio }}"
+
+      - set_fact:
+            rssi_report: "{{ rssi | wan_health_rssi }}"
+
+      - name: report to Slack
+        include_role:
+          name: slack_wan_health_lte
