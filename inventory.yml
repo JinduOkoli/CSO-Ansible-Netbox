@@ -8,5 +8,8 @@ all:
         SDWAN_with_vSRX:
         SDWAN_with_NFX:
         SDWAN_with_SRX_hardway:
-        London:
-            ansible_host: 51.241.87.42
+        Magnolia:
+            ansible_host: 10.6.5.77
+            provider_info:
+                user: automation
+                passwd: u@vVDDh8

@@ -1,0 +1,42 @@
+{
+    "blocks": [
+        {
+            "type": "header",
+            "text": {
+                "type": "plain_text",
+                "text": ":signal_strength:  LTE Health Report  :signal_strength:"
+            }
+        },
+        {
+            "type": "context",
+            "elements": [
+                {
+                    "text": "*Network Operations Bot* :robot_face:  |  WAN report",
+                    "type": "mrkdwn"
+                }
+            ]
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": " :paperclip: *LTE circuit details*"
+            }
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": ":white_small_square: *Connected Time:* `{{ report_modem.connected_time }}`\n:white_small_square: *APN:* `{{ report_modem.gsm_network.apn }}`\n:white_small_square: *Cell ID:* `{{ report_modem.gsm_network.cell_id }}`\n:white_small_square: *GSM Band:* `{{ report_modem.gsm_network.gsm_band }}`\n:white_small_square: *Modem Status:* `{{ report_modem.gsm_network.modem_status }}`\n:white_small_square: *Network:* `{{ report_modem.gsm_network.network }}`\n:white_small_square: *RSRP:* `{{ report_modem.gsm_network.rsrp }}`\n:white_small_square: *RSRQ:* `{{ report_modem.gsm_network.rsrq }}`\n:white_small_square: *Service Mode:* `{{ report_modem.gsm_network.service_mode }}`\n:white_small_square: *SINR:* `{{ report_modem.gsm_network.sinr }}`\n:white_small_square: *SNR:* `{{ report_modem.gsm_network.snr }}`\n\n:clipboard: *Network Info*\n\n:white_small_square: *DNS*: `{{ report_modem.lte_network_ipv4.dns }}`\n:white_small_square: *Gateway*: `{{ report_modem.lte_network_ipv4.gateway }}`\n:white_small_square: *IPv4*: `{{ report_modem.lte_network_ipv4.ip_addr }}`\n\n:signal_strength: *RSSI*\n\n:white_small_square: *RSSI*: `{{ report_rssi.rssi }}`\n"
+            },
+            "accessory": {
+                "type": "image",
+                "image_url": "https://raw.githubusercontent.com/packetferret/CSO-Ansible-Netbox/master/images/network_icon.png",
+                "alt_text": "Juniper Burst"
+            }
+        }
+    ]
+}

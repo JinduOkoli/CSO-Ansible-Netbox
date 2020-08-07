@@ -3,7 +3,7 @@
 ### ---------------------------------------------------------------------------
 - name: "Create a JSON payload with LTE health details"
   template:
-    src: "slack_wan_health_lte_{{ detail }}.j2"
+    src: "slack_wan_health_lte.j2"
     dest: /var/tmp/slack_wan_health_lte.json
     mode: 0640
   run_once: True
