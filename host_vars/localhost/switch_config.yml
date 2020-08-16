@@ -1,11 +1,11 @@
 ---
 switch:
     networks:
-        - name: Management
-          vlan_id: '12'
         - name: Employee
           vlan_id: '11'
         - name: Guest
+          vlan_id: '12'
+        - name: IOT
           vlan_id: '13'
         - name: PCI
           vlan_id: '14'
@@ -63,14 +63,12 @@ switch:
     managed: true
     ip_config:
         type: dhcp
-        network: Management
+        network: Guest
     role: ''
     port_config:
         - name: ge-0/0/0
           usage: uplink
-        - name: ge-0/0/2
-          usage: employee
-        - name: ge-0/0/4,ge-0/0/6
+        - name: ge-0/0/2,ge-0/0/4,ge-0/0/6
           usage: vmware
         - name: ge-0/0/8
           usage: pci
@@ -80,4 +78,4 @@ switch:
         - set system domain-name network.home
         - set system name-server 10.6.6.20
         - set system name-server 10.6.6.21
-    name: seattle-sw1
+    name: Seattle
