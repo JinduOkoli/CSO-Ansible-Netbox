@@ -1,81 +1,85 @@
+
 ---
 switch:
-    networks:
-        - name: Employee
-          vlan_id: '11'
-        - name: Guest
-          vlan_id: '12'
-        - name: IOT
-          vlan_id: '13'
-        - name: PCI
-          vlan_id: '14'
-    port_profiles:
-        - name: ap
-          port_network: default
-          disabled: false
-          port_auth: 
-          mode: trunk
-          stp_edge: true
-          isOverrider: true
-          networks: []
-          all_networks: true
-        - name: default
-          port_network: Guest
-          all_networks: false
-          port_auth: 
-          mode: access
-          stp_edge: true
-          networks: []
-          disabled: false
-        - name: pci
-          port_network: PCI
-          all_networks: false
-          port_auth: 
-          mode: access
-          stp_edge: true
-          networks: []
-          disabled: false
-        - name: uplink
-          port_network: default
-          disabled: false
-          port_auth: 
-          mode: trunk
-          stp_edge: true
-          networks: []
-          all_networks: true
-        - name: vmware
-          port_network: default
-          all_networks: true
-          port_auth: 
-          mode: trunk
-          stp_edge: true
-          networks: []
-          disabled: false
-        - name: employee
-          port_network: Employee
-          all_networks: false
-          port_auth: 
-          mode: access
-          stp_edge: true
-          networks: []
-          disabled: false
-    notes: ''
-    managed: true
-    ip_config:
-        type: dhcp
-        network: Guest
-    role: ''
-    port_config:
-        - name: ge-0/0/0
-          usage: uplink
-        - name: ge-0/0/2,ge-0/0/4,ge-0/0/6
-          usage: vmware
-        - name: ge-0/0/8
-          usage: pci
-        - name: ge-0/0/10
-          usage: ap
-    additional_config_cmds:
-        - set system domain-name network.home
-        - set system name-server 10.6.6.20
-        - set system name-server 10.6.6.21
-    name: Seattle
+  additional_config_cmds:
+    - set system domain-name seattle.ampersand.com
+    - delete system name-server
+    - set system name-server 10.6.6.20
+    - set system name-server 10.6.6.21
+  ip_config:
+    network: oob
+    type: dhcp
+  managed: true
+  name: seattle-sw1
+  networks:
+    employee:
+      vlan_id: '11'
+    guest:
+      vlan_id: '12'
+    iot:
+      vlan_id: '13'
+    oob:
+      vlan_id: '10'
+    pci:
+      vlan_id: '14'
+  notes: ''
+  oob_ip_config:
+    network: default
+    type: dhcp
+  port_config:
+    ge-0/0/10:
+      usage: ap
+    ge-0/0/11:
+      usage: uplink
+    ge-0/0/2-6:
+      usage: vmware
+  port_usages:
+    ap:
+      all_networks: true
+      disabled: false
+      isOverrider: true
+      mode: trunk
+      name: ap
+      networks: []
+      port_auth: null
+      port_network: default
+      stp_edge: true
+    default:
+      all_networks: false
+      disabled: false
+      mode: access
+      name: default
+      networks: []
+      port_auth: null
+      port_network: guest
+      stp_edge: true
+    employee:
+      all_networks: false
+      disabled: false
+      mode: access
+      name: employee
+      networks: []
+      port_auth: null
+      port_network: employee
+      stp_edge: true
+    uplink:
+      all_networks: true
+      disabled: false
+      mode: trunk
+      name: uplink
+      networks: []
+      port_auth: null
+      port_network: default
+      stp_edge: true
+    vmware:
+      all_networks: true
+      disabled: false
+      mode: trunk
+      name: vmware
+      networks: []
+      port_auth: null
+      port_network: default
+      stp_edge: true
+  role: ''
+  '-ntp_servers': true
+  '-radius_config': true
