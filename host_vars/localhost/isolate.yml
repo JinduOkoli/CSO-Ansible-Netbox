@@ -1,51 +1,51 @@
 ---
 isolate:
-    networks:
-        - name: Management
-          vlan_id: '12'
-        - name: Blackhole
-          vlan_id: '255'
-    port_profiles:
-        - name: ap
-          port_network: default
-          disabled: false
-          port_auth: 
-          mode: trunk
-          stp_edge: true
-          isOverrider: true
-          networks: []
-          all_networks: true
-        - name: blackhole
-          port_network: Blackhole
-          all_networks: false
-          port_auth: 
-          mode: access
-          stp_edge: true
-          networks: []
-          disabled: true
-        - name: uplink
-          port_network: default
-          disabled: false
-          port_auth: 
-          mode: trunk
-          stp_edge: true
-          networks: []
-          all_networks: true
-    notes: 'under cyber security event'
-    managed: true
-    ip_config:
-        type: dhcp
-        network: Management
-    role: ''
-    port_config:
-        - name: ge-0/0/0
-          usage: uplink
-        - name: ge-0/0/1-9,ge-0/0/11
-          usage: blackhole
-        - name: ge-0/0/10
-          usage: ap
-    additional_config_cmds:
-        - set system domain-name network.home
-        - set system name-server 10.6.6.20
-        - set system name-server 10.6.6.21
-    name: seattle-sw1
+  additional_config_cmds:
+    - set system domain-name network.home
+    - set system name-server 10.6.6.20
+    - set system name-server 10.6.6.21
+  ip_config:
+    network: oob
+    type: dhcp
+  managed: true
+  name: seattle-sw1
+  networks:
+    - name: oob
+      vlan_id: '10'
+    - name: blackhole
+      vlan_id: '255'
+  notes: under cyber security event
+  port_config:
+    - name: 'ge-0/0/1,ge-0/0/11'
+      usage: trunk
+    - name: 'ge-0/0/2-9,ge-0/0/0'
+      usage: blackhole
+    - name: ge-0/0/10
+      usage: ap
+  port_profiles:
+    - name: ap
+      port_network: default
+      all_networks: true
+      disabled: false
+      isOverrider: true
+      mode: trunk
+      networks: []
+      port_auth: null
+      stp_edge: true
+    - name: blackhole
+      port_network: blackhole
+      all_networks: false
+      disabled: true
+      mode: access
+      networks: []
+      port_auth: null
+      stp_edge: true
+    - name: trunk
+      port_network: default
+      all_networks: true
+      disabled: false
+      mode: trunk
+      networks: []
+      port_auth: null
+      stp_edge: true
+  role: ''

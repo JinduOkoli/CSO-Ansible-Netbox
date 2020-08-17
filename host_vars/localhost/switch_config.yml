@@ -1,9 +1,7 @@
-
 ---
 switch:
   additional_config_cmds:
-    - set system domain-name seattle.ampersand.com
-    - delete system name-server
+    - set system domain-name network.home
     - set system name-server 10.6.6.20
     - set system name-server 10.6.6.21
   ip_config:
@@ -12,74 +10,76 @@ switch:
   managed: true
   name: seattle-sw1
   networks:
-    employee:
-      vlan_id: '11'
-    guest:
-      vlan_id: '12'
-    iot:
-      vlan_id: '13'
-    oob:
+    - name: oob
       vlan_id: '10'
-    pci:
+    - name: employee
+      vlan_id: '11'
+    - name: guest
+      vlan_id: '12'
+    - name: iot
+      vlan_id: '13'
+    - name: pci
       vlan_id: '14'
-  notes: ''
-  oob_ip_config:
-    network: default
-    type: dhcp
+  notes: '20200817-CCR: change port configs'
   port_config:
-    ge-0/0/10:
-      usage: ap
-    ge-0/0/11:
-      usage: uplink
-    ge-0/0/2-6:
+    - name: 'ge-0/0/1,ge-0/0/11'
+      usage: trunk
+    - name: 'ge-0/0/2,ge-0/0/4,ge-0/0/6'
       usage: vmware
-  port_usages:
-    ap:
+    - name: ge-0/0/3
+      usage: pci
+    - name: 'ge-0/0/5,ge-0/0/7'
+      usage: iot
+    - name: ge-0/0/10
+      usage: ap
+  port_profiles:
+    - name: ap
+      port_network: default
       all_networks: true
       disabled: false
       isOverrider: true
       mode: trunk
-      name: ap
       networks: []
       port_auth: null
-      port_network: default
       stp_edge: true
-    default:
-      all_networks: false
-      disabled: false
-      mode: access
-      name: default
-      networks: []
-      port_auth: null
+    - name: default
       port_network: guest
-      stp_edge: true
-    employee:
       all_networks: false
       disabled: false
       mode: access
-      name: employee
       networks: []
       port_auth: null
+      stp_edge: true
+    - name: employee
       port_network: employee
+      all_networks: false
+      disabled: false
+      mode: access
+      networks: []
+      port_auth: null
       stp_edge: true
-    uplink:
+    - name: pci
+      port_network: pci
+      all_networks: false
+      disabled: false
+      mode: access
+      networks: []
+      port_auth: null
+      stp_edge: true
+    - name: trunk
+      port_network: default
       all_networks: true
       disabled: false
       mode: trunk
-      name: uplink
       networks: []
       port_auth: null
-      port_network: default
       stp_edge: true
-    vmware:
+    - name: vmware
+      port_network: default
       all_networks: true
       disabled: false
       mode: trunk
-      name: vmware
       networks: []
       port_auth: null
-      port_network: default
       stp_edge: true
   role: ''
-  '-ntp_servers': true
-  '-radius_config': true
