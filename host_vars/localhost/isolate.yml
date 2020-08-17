@@ -18,7 +18,7 @@ isolate:
   port_config:
     - name: 'ge-0/0/1,ge-0/0/11'
       usage: trunk
-    - name: 'ge-0/0/2-9,ge-0/0/0'
+    - name: 'ge-0/0/2-9'
       usage: blackhole
     - name: ge-0/0/10
       usage: ap
@@ -33,6 +33,14 @@ isolate:
       port_auth: null
       stp_edge: true
     - name: blackhole
+      port_network: blackhole
+      all_networks: false
+      disabled: true
+      mode: access
+      networks: []
+      port_auth: null
+      stp_edge: true
+    - name: default
       port_network: blackhole
       all_networks: false
       disabled: true
