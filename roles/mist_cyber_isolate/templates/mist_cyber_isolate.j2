@@ -72,7 +72,7 @@ notes: ""
 managed: true
 ip_config:
   type: dhcp
-  network: Management
+  network: {{ ip_config.network }}
 role: ""
 port_config:
   {# port config from Ansible project #}
@@ -88,7 +88,7 @@ additional_config_cmds:
   {% endfor %}
 
 {% if snow_site_name is defined and snow_site_name|length > 0 %}
-name: cyber-{{ snow_site_name }}
+name: cyber-{{ switch.name }}
 {% elif switch.name is defined %}
 name: {{ switch.name }}
 {% else %}
