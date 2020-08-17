@@ -136,7 +136,7 @@ notes: ""
 managed: true
 ip_config:
   type: dhcp
-  network: Management
+  network: {{ switch.ip_config.network }}
 role: ""
 port_config:
   {# port config from Ansible project #}
