@@ -27,4 +27,4 @@ lan_config:
                   - 8.8.8.8
                 subnet: "{{ snow_ip_prefix }}"
             lan_ports:
-              - LAN_1
+              - LAN_2
