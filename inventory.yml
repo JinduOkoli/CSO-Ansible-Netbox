@@ -8,8 +8,9 @@ all:
         SDWAN_with_vSRX:
         SDWAN_with_NFX:
         SDWAN_with_SRX_hardway:
-        Magnolia:
-            ansible_host: 10.6.5.77
+        test:
+            ansible_host: 10.6.5.204
             provider_info:
                 user: automation
-                passwd: u@vVDDh8
+                passwd: juniper123
+                port: 830

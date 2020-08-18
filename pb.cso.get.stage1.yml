@@ -1,0 +1,19 @@
+---
+  ### ---------------------------------------------------------------------------
+  ### RETRIEVE STAGE 1 CONFIG AND APPLY TO CPE
+  ### ---------------------------------------------------------------------------
+  - hosts: localhost
+    connection: local
+    gather_facts: False
+    become: False
+    any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+    vars:
+      tenant_name: Ampersand
+    roles:
+      ### ---------------------------------------------------------------------------
+      ### CSO WORK
+      ### ---------------------------------------------------------------------------
+      - { role: juniper.junos }
+      - { role: cso_auth }
+      - { role: cso_get_stage1 }
+      - { role: cso_push_stage1 }

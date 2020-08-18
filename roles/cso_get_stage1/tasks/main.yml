@@ -1,0 +1,25 @@
+### ---------------------------------------------------------------------------
+### RETREIVE A DEVICE'S STAGE 1 CONFIG
+### ---------------------------------------------------------------------------
+- name: build the dictionary of variables
+  set_fact:
+    body_payload:
+      input:
+        device_uuid: 9bfe0df0-578f-4d50-ba56-107978264a44
+        component_name: JUNOS
+
+- name: Get Stage1 config
+  uri:
+    url: https://contrail-juniper.net/ems-central/get-regional-device-details
+    method: POST
+    headers:
+      x-auth-token: "{{ token }}"
+    body: "{{ body_payload | to_json }}"
+    body_format: json
+    status_code: 200
+  register: stage1_config
+
+- name: save to variable as config
+  set_fact:
+    config: "{{ stage1_config.json.output.config_blob }}"
+
