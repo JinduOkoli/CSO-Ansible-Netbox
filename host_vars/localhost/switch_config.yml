@@ -1,14 +1,23 @@
 ---
 switch:
+  ### # ADDITIONAL CLI COMMANDS FOR OPTIONS NOT IN THE GUI TODAY
   additional_config_cmds:
     - set system domain-name network.home
     - set system name-server 10.6.6.20
     - set system name-server 10.6.6.21
+
+  ### # CONFIGURATION OF THE INBAND MANAGEMENT PORT
   ip_config:
     network: oob
     type: dhcp
+
+  ### # DECLARE IF THE SWITCH IS MANAGED OR NOT
   managed: true
-  name: seattle-sw1
+
+  ### # HOSTNAME
+  name: Seattle-sw1
+
+  ### # VLANS
   networks:
     - name: oob
       vlan_id: '10'
@@ -20,7 +29,11 @@ switch:
       vlan_id: '13'
     - name: pci
       vlan_id: '14'
+  
+  ### # ADDITIONAL NOTES
   notes: '20200817-CCR: change port configs'
+
+  ### # PORT CONFIGURATIONS
   port_config:
     - name: 'ge-0/0/1,ge-0/0/11'
       usage: trunk
@@ -32,9 +45,12 @@ switch:
       usage: iot
     - name: ge-0/0/10
       usage: ap
+
+  ### # GROUP CONFIGURATIONS FOR INTERFACES
   port_profiles:
+    ### # ACCESS POINTS
     - name: ap
-      port_network: default
+      port_network: oob
       all_networks: true
       disabled: false
       isOverrider: true
@@ -42,6 +58,8 @@ switch:
       networks: []
       port_auth: null
       stp_edge: true
+    
+    ### # DEFAULT 
     - name: default
       port_network: guest
       all_networks: false
@@ -50,6 +68,8 @@ switch:
       networks: []
       port_auth: null
       stp_edge: true
+    
+    ### # EMPLOYEE
     - name: employee
       port_network: employee
       all_networks: false
@@ -58,6 +78,8 @@ switch:
       networks: []
       port_auth: null
       stp_edge: true
+    
+    ### # PCI
     - name: pci
       port_network: pci
       all_networks: false
@@ -66,6 +88,8 @@ switch:
       networks: []
       port_auth: null
       stp_edge: true
+    
+    ### # GENERIC TRUNK PORT
     - name: trunk
       port_network: default
       all_networks: true
@@ -74,6 +98,8 @@ switch:
       networks: []
       port_auth: null
       stp_edge: true
+    
+    ### # VMWARE SERVERS
     - name: vmware
       port_network: default
       all_networks: true

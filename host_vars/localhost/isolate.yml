@@ -24,7 +24,7 @@ isolate:
       usage: ap
   port_profiles:
     - name: ap
-      port_network: default
+      port_network: oob
       all_networks: true
       disabled: false
       isOverrider: true
