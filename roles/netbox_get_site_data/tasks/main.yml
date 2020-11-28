@@ -18,6 +18,9 @@
     force_basic_auth: yes
     validate_certs: false
   register: site_data
+  
+- debug:
+    msg: "{{ site_data }}"
 
 - name: "setting site_data variable"
   set_fact:
