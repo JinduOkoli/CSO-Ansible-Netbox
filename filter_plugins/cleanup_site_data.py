@@ -6,6 +6,7 @@ class FilterModule(object):
         }
 
     def cleanup_site_data(self, value):
+        print(value)
         site = {}
         for each in value:
             site["name"] = each["name"]
