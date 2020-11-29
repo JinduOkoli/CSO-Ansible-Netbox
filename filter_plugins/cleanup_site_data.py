@@ -5,7 +5,7 @@ class FilterModule(object):
             'cleanup_site_data': self.cleanup_site_data,
         }
 
-    def cleanup_site_data(self, value):coun
+    def cleanup_site_data(self, value):
         print(value)
         site = {}
         for each in value:
