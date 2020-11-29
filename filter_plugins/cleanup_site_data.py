@@ -12,7 +12,7 @@ class FilterModule(object):
             site["name"] = each["name"]
             site["slug"] = each["slug"]
             # site["region"] = each["region"]["slug"]
-            site["country"] = each["region"]["name"]
+            # site["country"] = each["region"]["name"]
             # site["tenant"] = each["tenant"]["slug"]
             site["facility"] = each["facility"]
             site["asn"] = each["asn"]
