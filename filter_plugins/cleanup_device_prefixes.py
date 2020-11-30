@@ -11,6 +11,7 @@ class FilterModule(object):
         voice = {}
         iot = {}
         pci = {}
+        print(value)
         for each in value:
             if each["description"] == 'data':
                 data["address"] = each["address"]
