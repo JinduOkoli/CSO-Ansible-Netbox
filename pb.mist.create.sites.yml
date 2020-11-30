@@ -34,7 +34,7 @@
               long: "{{ item.longitude }}"
             notes: "{{ item.facility }}"
             country_code: "US"
-            timezone: "America/Los_Angeles"
+            timezone: "America/New_York"
           force_basic_auth: yes
           body_format: json
 
