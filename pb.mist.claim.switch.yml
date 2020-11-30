@@ -27,8 +27,7 @@
             Content-Type: "application/json"
             Authorization: "Token {{ mist_wired.api_token }}"
           body: 
-            code: "{{ claim_code }}"
-            type: "all"
+            - [ "{{ claim_code }}" ]
           force_basic_auth: yes
           body_format: json
 
