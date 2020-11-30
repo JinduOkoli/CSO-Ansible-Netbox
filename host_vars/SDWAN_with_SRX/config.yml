@@ -13,14 +13,14 @@ config:
         name: WAN_0
         wan_link_type: Internet
         access_type: Ethernet
-        provider: Comcast
+        provider: 
         cost: 800
         mesh_tag: INTERNET
     overlay:
       tunnel_type: GRE_IPSEC
     vpn_name:
       primary: "{{ tenant_name }}_DefaultVPN"
-    template_name: "{{ tenant_name }}/Ampersand_Spoke_SRX"
+    template_name: "{{ tenant_name }}/POC_Spoke_SRX"
   site_deployment_capabilities:
     primary: SDWAN
   ntpserver: "216.239.35.4"
