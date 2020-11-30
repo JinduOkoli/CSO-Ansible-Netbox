@@ -19,7 +19,7 @@
       ### ---------------------------------------------------------------------------
       - name: "Create a new site in Mist"
         uri:
-          url: "https://{{ mist_wired.base_url }}/orgs/{{ mist_wired.id_org }}/claim"
+          url: "https://{{ mist_wired.base_url }}/orgs/{{ mist_wired.id_org }}/inventory"
           method: POST
           return_content: yes
           status_code: "200"
@@ -27,7 +27,7 @@
             Content-Type: "application/json"
             Authorization: "Token {{ mist_wired.api_token }}"
           body: 
-            magic: "{{ claim_code }}"
+            0: "{{ claim_code }}"
             type: "all"
           force_basic_auth: yes
           body_format: json
