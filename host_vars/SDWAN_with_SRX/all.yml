@@ -10,12 +10,11 @@ input:
         site_role: SPOKE
         dvpn_params:
           create_dvpn_threshold: "5"
-          delete_dvpn_threshold: "2"
-          
+          delete_dvpn_threshold: "2"          
  ######################################################
  Update Site Address
  ######################################################
-        site_address:
+#         site_address:
 #           street: "{{ site_data.street_address }}"
 #           city: "{{ site_data.city }}"
 #           state: "{{ site_data.state }}"
