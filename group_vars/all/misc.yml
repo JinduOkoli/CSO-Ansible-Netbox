@@ -10,4 +10,4 @@ site_python_config: "{{ lookup('file', python_dict_config) }}"
 
 site_json: "/var/tmp/{{ inventory_hostname }}.json"
 
-cso_tenant_id: "a4990978-c313-428c-b6a8-dfa9ec5eda37"
+cso_tenant_id: "830c5a25-bbe1-4a1e-a3e1-536f35866c12"
