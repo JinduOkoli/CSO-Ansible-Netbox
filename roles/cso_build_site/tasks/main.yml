@@ -4,7 +4,11 @@
 - name: "tranlate YAML to Python dictionary"
   set_fact:
     yaml_to_python: "{{ site_yaml_config | yaml_to_dict }}"
-
+    
+- name: 'check tenant name'
+  debug:
+    msg: "{{ tenant_name }}"
+    
 - name: "write the Python dictionary to a local file"
   local_action: 
     module: copy 
