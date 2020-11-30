@@ -3,8 +3,7 @@
 ### ---------------------------------------------------------------------------
 - name: "tranlate YAML to Python dictionary"
   set_fact:
-    yaml_to_python: "{{ site_yaml_config  }}"
-#     yaml_to_python: "{{ site_yaml_config | yaml_to_dict }}"
+    yaml_to_python: "{{ site_yaml_config | yaml_to_dict }}"
 
 - name: 'debug love yaml_to_python'
   debug:
