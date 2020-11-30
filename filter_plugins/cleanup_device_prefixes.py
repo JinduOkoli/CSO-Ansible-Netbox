@@ -16,8 +16,10 @@ class FilterModule(object):
             if each["description"] == 'data':
                 data["address"] = each["address"]
                 data["description"] = each["description"]
-                data["device"] = each["interfaces"]["device"]["display_name"]
-                data["interface"] = each["interfaces"]["name"]
+                #data["device"] = each["interface"]["device"]["display_name"]
+                data["device"] = each["assigned_object"]["device"]["display_name"]
+                #data["interface"] = each["interface"]["name"]
+                data["device"] = each["assigned_object"]["name"]
                 data["name"] = each["vrf"]["name"]
                 data["rd"] = each["vrf"]["rd"]
                 data["tags"] = each["tags"]
