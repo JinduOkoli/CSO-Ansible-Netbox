@@ -1,0 +1,38 @@
+---
+  ### ---------------------------------------------------------------------------
+  ### CREATE A TON OF SITES IN MIST
+  ### ---------------------------------------------------------------------------
+  - hosts: localhost
+    connection: local
+    gather_facts: False
+    become: False
+    #roles:
+      ### ---------------------------------------------------------------------------
+      ### Netbox work  
+      ### ---------------------------------------------------------------------------
+    #  - { role: netbox_get_all_sites }
+    #tasks:
+    #  - debug:
+    #      msg: "{{ all_sites }}"
+      ### ---------------------------------------------------------------------------
+      ### CREATE SITE IN MIST
+      ### ---------------------------------------------------------------------------
+      - name: "Create a new site in Mist"
+        uri:
+          url: "https://{{ mist_wired.base_url }}/orgs/{{ mist_wired.id_org }}/claim"
+          method: POST
+          return_content: yes
+          status_code: "200"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Token {{ mist_wired.api_token }}"
+          body: 
+            claim: "{{ claim_code }}"
+            type: "all"
+          force_basic_auth: yes
+          body_format: json
+
+       # when:
+       #   - item.name != "Seattle"
+
+       # loop: "{{ all_sites }}"
