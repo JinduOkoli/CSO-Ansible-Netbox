@@ -7,7 +7,7 @@
 
 - name: 'debug love yaml_to_python'
   debug:
-    var: "{{ yaml_to_python }}"
+    var: yaml_to_python
     
 - name: 'check tenant name'
   debug:
