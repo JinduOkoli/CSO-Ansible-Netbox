@@ -11,12 +11,16 @@ input:
         dvpn_params:
           create_dvpn_threshold: "5"
           delete_dvpn_threshold: "2"
+          
+ ######################################################
+ Update Site Address
+ ######################################################
         site_address:
-          street: "{{ site_data.street_address }}"
-          city: "{{ site_data.city }}"
-          state: "{{ site_data.state }}"
-          # zip_code: "{{ site_data.zip_code }}"
-          country: "{{ site_data.country }}"
+#           street: "{{ site_data.street_address }}"
+#           city: "{{ site_data.city }}"
+#           state: "{{ site_data.state }}"
+#           # zip_code: "{{ site_data.zip_code }}"
+#           country: "{{ site_data.country }}"
         site_contact:
           contact_name: "{{ site_data.contact_name }}"
           email_address: "{{ site_data.contact_email }}"
