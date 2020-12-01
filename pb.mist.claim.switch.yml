@@ -30,6 +30,11 @@
             - "{{ claim_code }}"
           force_basic_auth: yes
           body_format: json
+        register: claimed_switch
+        
+      - name: "Claimed Switch"
+        debug:
+          var: claimed_switch
 
        # when:
        #   - item.name != "Seattle"
