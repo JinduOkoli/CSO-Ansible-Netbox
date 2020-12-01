@@ -1,0 +1,29 @@
+### ---------------------------------------------------------------------------
+### BUILD PAYLOAD FOR SITE
+### ---------------------------------------------------------------------------
+- name: "Create a JSON payload with Switch Template details"
+  template:
+    src: mist_switch_template.j2
+    dest: /var/tmp/mist_switch_template.json
+    mode: 0640
+
+### ---------------------------------------------------------------------------
+### CREATE SWITCH TEMPLATE IN MIST
+### ---------------------------------------------------------------------------
+- name: "Create a new switch template in Mist"
+  uri:
+    url: "{{ mist.baseurl }}/v1/orgs/{{ mist.orgid }}/networktemplates"
+    method: POST
+    return_content: yes
+    status_code: "200"
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Token {{ mist.apitoken }}"
+    body: "{{ lookup('file','/var/tmp/mist_switch_template.json') }}"
+    force_basic_auth: yes
+    body_format: json
+  register: create_switch_template
+
+- name: "setting template_id variable"
+  set_fact:
+    template_id: "{{ create_switch_template.json.id }}"
