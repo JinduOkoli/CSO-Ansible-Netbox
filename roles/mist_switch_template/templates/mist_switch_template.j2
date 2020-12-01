@@ -1,0 +1,139 @@
+{
+   "name": "{{ switch_template_name }}",
+   "switch_mgmt": {
+      "config_revert_timer": 11
+   },
+   "networks": {
+      "default": {
+         "vlan_id": 1
+      },
+      "corp": {
+         "vlan_id": 600
+      },
+      "guest": {
+         "vlan_id": 700
+      },
+      "mgmt": {
+         "vlan_id": 500
+      }
+   },
+   "radius_config": {
+      "auth_servers_timeout": 5,
+      "auth_servers_retries": 3,
+      "auth_servers": [
+         {
+            "host": "1.2.3.4",
+            "port": 1812,
+            "secret": "testing123"
+         }
+      ],
+      "acct_servers": [
+         {
+            "host": "1.2.3.4",
+            "port": 1812,
+            "secret": "testing123"
+         }
+      ],
+      "acct_interim_interval": 0
+   },
+   "port_usages": {
+      "ap": {
+         "name": "ap",
+         "mode": "trunk",
+         "all_networks": true,
+         "stp_edge": true,
+         "port_network": "default",
+         "networks": [
+            "guest",
+            "corp"
+         ],
+         "disabled": true,
+         "description": "WAP"
+      },
+      "uplink": {
+         "name": "uplink",
+         "mode": "trunk",
+         "all_networks": true,
+         "stp_edge": false,
+         "port_network": null
+      },
+      "iot": {
+         "name": "iot",
+         "mode": "access",
+         "stp_edge": true,
+         "port_network": "default"
+      },
+      "default": {
+         "name": "default",
+         "mode": "access",
+         "stp_edge": false,
+         "port_network": "default"
+      },
+      "dynamic": {
+         "mode": "dynamic",
+         "rules": [
+            {
+               "src": "lldp_system_name",
+               "expression": "[0:3]",
+               "equals": "SENSOR",
+               "usage": "iot"
+            },
+            {
+               "src": "radius_username",
+               "expression": "[0:3]",
+               "equals": "SENSOR",
+               "usage": "iot"
+            }
+         ]
+      },
+      "user": {
+         "name": "user",
+         "mode": "access",
+         "stp_edge": true,
+         "port_auth": "dot1x",
+         "enable_mac_auth": false,
+         "guest_network": null,
+         "bypass_auth_when_server_down": false
+      }
+   },
+   "switch_matching": {
+      "enable": true,
+      "rules": [
+         {
+            "name": "access",
+            "match_role": "access",
+            "match_model": "EX4300",
+            "port_config": {
+               "xe-0/2/0-4": {
+                  "usage": "uplink"
+               },
+               "ge-0/0/8-16,ge-1/0/0-47": {
+                  "usage": "ap"
+               },
+               "*": {
+                  "usage": "default"
+               }
+            },
+            "additional_config_cmds": [
+               "set snmp community public"
+            ],
+            "switch_mgmt": {
+               "config_revert_timer": 5
+            }
+         },
+         {
+            "name": "match by role",
+            "match_role": "spines",
+            "match_model": "QFX5120",
+            "port_config": {
+               "xe-0/0/44-47": {
+                  "usage": "uplink"
+               }
+            },
+            "additional_config_cmds": [
+               "set snmp community public2"
+            ]
+         }
+      ]
+   }
+}
