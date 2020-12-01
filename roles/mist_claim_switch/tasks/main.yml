@@ -3,19 +3,19 @@
 ### CLAIM SWITCH TO MIST
 ### ---------------------------------------------------------------------------
 - name: "Claim switch to Mist"
-    uri:
-      url: "https://{{ mist_wired.base_url }}/orgs/{{ mist_wired.id_org }}/inventory"
-      method: POST
-      return_content: yes
-      status_code: "200"
-      headers:
-        Content-Type: "application/json"
-        Authorization: "Token {{ mist_wired.api_token }}"
-      body: 
-        - "{{ claim_code }}"
-      force_basic_auth: yes
-      body_format: json
-    register: claimed_switch
+  uri:
+    url: "https://{{ mist_wired.base_url }}/orgs/{{ mist_wired.id_org }}/inventory"
+    method: POST
+    return_content: yes
+    status_code: "200"
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Token {{ mist_wired.api_token }}"
+    body: 
+      - "{{ claim_code }}"
+    force_basic_auth: yes
+    body_format: json
+  register: claimed_switch
        
 - name: "Claimed Switch"
   debug:
