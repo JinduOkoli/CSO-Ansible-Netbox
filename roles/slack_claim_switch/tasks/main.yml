@@ -1,0 +1,47 @@
+### ---------------------------------------------------------------------------
+### UPDATE TEAM IN SLACK
+### ---------------------------------------------------------------------------
+- name: "Create a new site in Mist"
+    uri:
+      url: "https://{{ mist_wired.base_url }}/orgs/{{ mist_wired.id_org }}/inventory"
+      method: POST
+      return_content: yes
+      status_code: "200"
+      headers:
+        Content-Type: "application/json"
+        Authorization: "Token {{ mist_wired.api_token }}"
+      body: 
+        - "{{ claim_code }}"
+      force_basic_auth: yes
+      body_format: json
+    register: claimed_switch
+       
+- name: "Claimed Switch"
+  debug:
+    var: "{{ claimed_switch.json.inventory_added }}"
+
+- name: "Run cleanup function on switch_name variable"
+  set_fact:
+    cleaned_switch_name: "{{ claimed_switch.json.inventory_added }}"
+  run_once: True
+
+- name: "Create a JSON payload with Switch details"
+  template:
+    src: mist_switch_slack_message.j2
+    dest: /var/tmp/mist_switch_slack_message.json
+    mode: 0640
+  run_once: True
+
+- name: "send an update message to team on Slack"
+  uri:
+    url: "{{ slack.baseurl }}"
+    method: POST
+    return_content: yes
+    status_code: "200"
+    headers:
+      Content-Type: "application/json"
+    body: "{{ lookup('file','/var/tmp/mist_switch_slack_message.json') }}"
+    force_basic_auth: yes
+    body_format: json
+  register: slack_message
+  run_once: True

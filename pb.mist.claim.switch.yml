@@ -6,37 +6,9 @@
     connection: local
     gather_facts: False
     become: False
-    #roles:
+    roles:
       ### ---------------------------------------------------------------------------
-      ### Netbox work  
+      ### Claim Switch
       ### ---------------------------------------------------------------------------
-    #  - { role: netbox_get_all_sites }
-    tasks:
-    #  - debug:
-    #      msg: "{{ all_sites }}"
-      ### ---------------------------------------------------------------------------
-      ### CREATE SITE IN MIST
-      ### ---------------------------------------------------------------------------
-      - name: "Create a new site in Mist"
-        uri:
-          url: "https://{{ mist_wired.base_url }}/orgs/{{ mist_wired.id_org }}/inventory"
-          method: POST
-          return_content: yes
-          status_code: "200"
-          headers:
-            Content-Type: "application/json"
-            Authorization: "Token {{ mist_wired.api_token }}"
-          body: 
-            - "{{ claim_code }}"
-          force_basic_auth: yes
-          body_format: json
-        register: claimed_switch
-        
-      - name: "Claimed Switch"
-        debug:
-          var: claimed_switch
-
-       # when:
-       #   - item.name != "Seattle"
-
-       # loop: "{{ all_sites }}"
+      - { role: slack_claim_switch }
+      
