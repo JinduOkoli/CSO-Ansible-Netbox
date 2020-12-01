@@ -24,6 +24,13 @@
   set_fact:
     cleaned_switch_name: "{{ claimed_switch.json.inventory_added[0] }}"
   run_once: True
+ 
+- name: "Claimed Switch"
+  debug:
+    var: cleaned_switch_name
+- name: "Claimed Switch Mac"
+  debug:
+    var: cleaned_switch_name["mac"]
 
 - name: "Create a JSON payload with Switch details"
   template:
