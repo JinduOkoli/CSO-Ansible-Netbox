@@ -2,6 +2,13 @@
 ### ---------------------------------------------------------------------------
 ### CLAIM SWITCH TO MIST
 ### ---------------------------------------------------------------------------
+- name: "Format Claim Codes"
+  set_fact:
+     cleaned_claim_codes: "{{ claim_code | cleanup_claim_codes }}"  
+- name:
+  debug:
+    var: cleaned_claim_codes
+    
 - name: "Claim switch to Mist"
   uri:
     url: "https://{{ mist_wired.base_url }}/orgs/{{ mist_wired.id_org }}/inventory"
@@ -12,7 +19,7 @@
       Content-Type: "application/json"
       Authorization: "Token {{ mist_wired.api_token }}"
     body: 
-      - "{{ claim_code }}"
+      - "{{ cleaned_claim_codes }}"
     force_basic_auth: yes
     body_format: json
   register: claimed_switch
