@@ -18,8 +18,7 @@
     headers:
       Content-Type: "application/json"
       Authorization: "Token {{ mist_wired.api_token }}"
-    body: 
-      - "{{ cleaned_claim_codes }}"
+    body: "{{ cleaned_claim_codes }}"
     force_basic_auth: yes
     body_format: json
   register: claimed_switch
