@@ -26,7 +26,7 @@
        
 - name: "Claimed Switch"
   debug:
-    var: claimed_switch
+    var: "{{ claimed_switch.json.inventory_added[0] }}"
 
 - name: "Run cleanup function on switch_name variable"
   set_fact:
