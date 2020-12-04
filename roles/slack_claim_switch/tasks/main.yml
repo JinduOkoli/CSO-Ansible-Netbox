@@ -10,7 +10,7 @@
 
 - name: "send an update message to team on Slack"
   uri:
-    url: "{{ slack.baseurl }}"
+    url: "https://outlook.office.com/webhook/8ded8c91-6ea7-4074-8b77-624d6a5c5858@bea78b3c-4cdb-4130-854a-1d193232e5f4/IncomingWebhook/5ea45d4342cb4f4f93b9394a3207fb60/8df6590e-260c-46cf-8d58-4921bb318e10"
     method: POST
     return_content: yes
     status_code: "200"
