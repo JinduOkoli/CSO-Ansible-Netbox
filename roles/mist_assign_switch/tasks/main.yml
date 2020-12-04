@@ -17,6 +17,10 @@
     src: mist_assign_switch.j2
     dest: /var/tmp/mist_assign_switch.json
     mode: 0640
+ 
+- name:
+  debug:
+    var: mist_assign_switch.j2
     
 - name: "Assign Switch to Site"
   uri:
@@ -26,16 +30,7 @@
     return_content: yes
     status_code: "200"
     method: PUT
-    body: {
-      "op": "assign",
-      "site_id": "17580e20-35e9-4372-b30d-6bcd7e99ccb5",
-      "macs": [
-        "28a24b82b071",
-        "30b64fc623ac"],
-      "no_reassign": false,
-      "disable_auto_config": false,
-      "managed": true }
-    #"{{ lookup('file','/var/tmp/mist_assign_switch.json') }}"
+    body: "{{ lookup('file','/var/tmp/mist_assign_switch.json') | to_json }}"
     body_format: json
   register: assign_switch
  
