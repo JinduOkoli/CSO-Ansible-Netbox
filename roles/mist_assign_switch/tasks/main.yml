@@ -21,14 +21,12 @@
 - name: "Assign Switch to Site"
   uri:
     url: "https://{{ mist_wired.base_url }}/orgs/{{ mist_wired.id_org }}/inventory"
-    method: PUT
+    headers:
+      Authorization: "Token {{ mist_wired.api_token }}"
     return_content: yes
     status_code: "200"
-    headers:
-      Content-Type: "application/json"
-      Authorization: "Token {{ mist_wired.api_token }}"
+    method: PUT
     body: "{{ lookup('file','/var/tmp/mist_assign_switch.json') }}"
-    #force_basic_auth: yes
     body_format: json
   register: assign_switch
  
