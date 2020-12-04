@@ -8,6 +8,5 @@ class FilterModule(object):
     def cleanup_switch_mac(self, value):
         macs = []
         for each in value:
-            for mac in each["mac"]:
-                macs.append(mac)
+            macs.append(each["mac"])
         return macs
