@@ -28,7 +28,7 @@
     method: PUT
     body: {
       "op": "assign",
-      "site_id": 17580e20-35e9-4372-b30d-6bcd7e99ccb5,
+      "site_id": "17580e20-35e9-4372-b30d-6bcd7e99ccb5",
       "macs": [
         "28a24b82b071",
         "30b64fc623ac"],
