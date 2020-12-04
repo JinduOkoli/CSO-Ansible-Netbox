@@ -3,7 +3,7 @@
 ### ---------------------------------------------------------------------------
 - name: "Format MAC addresses"
   set_fact:
-     cleaned_macs: "{{ mac | cleanup_switch_mac }}"
+     cleaned_macs: "{{ claimed_switch.json.inventory_added | cleanup_switch_mac }}"
      
 - name:
   debug:
