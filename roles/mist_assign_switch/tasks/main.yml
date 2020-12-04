@@ -6,7 +6,7 @@
 - name: "Assign Switch to Site"
   uri:
     url: "https://{{ mist_wired.base_url }}/orgs/{{ mist_wired.id_org }}/inventory"
-    method: POST
+    method: PUT
     return_content: yes
     status_code: "200"
     headers:
