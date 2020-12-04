@@ -16,8 +16,12 @@
     status_code: "200"
     headers:
       Content-Type: "application/json"
-      Content-Length: dataStr.length
-    body: "{{ lookup('file','/var/tmp/mist_switch_slack_message.json') }}"
+    body: |
+      {
+          "title": "Ansible notification message",
+          "text": "sample"
+      }
+    #"{{ lookup('file','/var/tmp/mist_switch_slack_message.json') }}"
     force_basic_auth: yes
     body_format: json
   register: slack_message
