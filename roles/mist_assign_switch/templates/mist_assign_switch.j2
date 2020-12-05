@@ -1,7 +1,9 @@
----
-op: assign
-site_id: "{{ site_id }}"
-macs: "{{ cleaned_macs }}"
-no_reassign: false
-disable_auto_config: false
-managed: true
+{
+    "op": "assign",
+    "site_id": "{{ site_id }}",
+    "macs": {{ cleaned_macs }},
+    "no_reassign": false,
+    "disable_auto_config": false,
+    "managed": true
+}
+
