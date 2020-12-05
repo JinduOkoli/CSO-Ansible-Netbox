@@ -30,7 +30,7 @@
     return_content: yes
     status_code: "200"
     method: PUT
-    body: "{{ lookup('file','/var/tmp/mist_assign_switch.json') | to_json }}"
+    body: "{{ lookup('file','/var/tmp/mist_assign_switch.json') }}"
     body_format: json
   register: assign_switch
  
