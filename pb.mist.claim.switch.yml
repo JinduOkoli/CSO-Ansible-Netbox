@@ -12,6 +12,6 @@
       ### ---------------------------------------------------------------------------
       - { role: mist_claim_switch }
       - { role: mist_assign_switch }
-     # - { role: slack_claim_switch }
+      - { role: slack_claim_switch }
 
       
