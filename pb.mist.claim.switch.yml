@@ -12,5 +12,5 @@
       ### ---------------------------------------------------------------------------
       - { role: mist_claim_switch }
       - { role: mist_assign_switch }
-      - { role: slack_claim_switch, multiple_switches: "{{ cleaned_switch_name }}"  }
+      - { role: slack_claim_switch, cleaned_switch_name: "{{ cleaned_switch_list }}"  }
       
