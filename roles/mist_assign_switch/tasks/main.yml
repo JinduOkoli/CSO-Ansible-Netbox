@@ -17,10 +17,6 @@
     src: mist_assign_switch.j2
     dest: /var/tmp/mist_assign_switch.json
     mode: 0640
- 
-- name:
-  debug:
-    var: mist_assign_switch.j2
     
 - name: "Assign Switch to Site"
   uri:
