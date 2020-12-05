@@ -33,4 +33,9 @@
 - name:
   debug:
     var: assign_switch
+    
+- name: Use role in loop
+  include_role:
+    name: slack_claim_switch
+  loop: "{{ cleaned_switch_list }}"
 
