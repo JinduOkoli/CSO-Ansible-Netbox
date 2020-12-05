@@ -25,5 +25,5 @@
 
 - name: "Run cleanup function on switch_name variable"
   set_fact:
-    cleaned_switch_name: "{{ claimed_switch.json.inventory_added[0] }}"
+    cleaned_switch_name: "{{ claimed_switch.json.inventory_added }}"
   run_once: True
