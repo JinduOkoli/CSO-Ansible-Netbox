@@ -1,0 +1,8 @@
+  ### ---------------------------------------------------------------------------
+  ### SEND UPDATE TO SLACK
+  ### ---------------------------------------------------------------------------
+
+- include: instance.yml
+  with_items: "{{ cleaned_switch_list }}"
+  loop_control:
+    loop_var: cleaned_switch_name
