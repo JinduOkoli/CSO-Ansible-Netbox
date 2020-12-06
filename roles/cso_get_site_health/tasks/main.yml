@@ -76,7 +76,7 @@
 
 - name: "send an update message to team on Slack"
   uri:
-    url: "{{ slack.mist_bot }}"
+    url: "{{ slack.sdwan_bot }}"
     method: POST
     return_content: yes
     status_code: "200"
