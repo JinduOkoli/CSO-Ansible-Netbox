@@ -30,7 +30,7 @@ config:
 #       primary: "{{ tenant_name }}_DefaultVPN"
 #     trunk_ports_1: "ge-0/0/1"
 #     trunk_ports_2: "ge-0/0/2"
-    template_name: "{{ tenant_name }}/POC_Spoke_SRX"
+    template_name: "HerndonPOC/POC_Spoke_SRX"
 #   switch:
 #     template_name: "EX_Single_ZTP"
 #     device_role: "LAN_DEVICE_EX"
