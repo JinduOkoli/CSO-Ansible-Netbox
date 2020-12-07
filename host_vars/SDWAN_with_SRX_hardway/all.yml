@@ -320,7 +320,7 @@ input:
                 backup_link: false
                 default_link: false
                 vpn_name: 
-                  - "{{ config.vpn_name.primary }}"
+                  - "{{ config.cpe.vpn_name.primary }}"
 #                 vpn:
 #                   - vpn_name: "{{ data_vrf }}"
 #                   - vpn_name: "{{ voice_vrf }}"
@@ -347,7 +347,7 @@ input:
                 backup_link: false
                 default_link: false
                 vpn_name: 
-                  - "{{ config.vpn_name.primary }}"
+                  - "{{ config.cpe.vpn_name.primary }}"
             oam_traffic: {}
             device_role: SDWAN
 #           - device_family: juniper-ex
