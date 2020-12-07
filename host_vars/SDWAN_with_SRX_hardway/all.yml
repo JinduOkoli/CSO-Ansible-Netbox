@@ -97,12 +97,7 @@ input:
 #           email_address: "{{ site_contact_email_address }}"
 #           phone_number: "{{ site_contact_phone_number }}"
 ########################################################################
-        site_role: spoke
-        gateway_sites: 
-          - gateway_role: "PRIMARY_GW"
-            gateway_name: "{{ config.gateway_sites.primary }}"
-          - gateway_role: "SECONDARY_GW"
-            gateway_name: "{{ config.gateway_sites.secondary }}"
+        site_role: SPOKE
         network_seg: true
         cloud_service: EDGE
         site_type: on_premise
@@ -124,7 +119,6 @@ input:
                 preferred_breakout_link: false
                 subscribed_bandwidth: 1000
                 enable_pppoe: false
-                used_for_oam: true
               - wan_link: "{{ config.cpe.wan_link.secondary.name }}"
                 wan_link_type: Internet
                 cost_currency: USD
@@ -137,7 +131,6 @@ input:
                 preferred_breakout_link: false
                 subscribed_bandwidth: 1000
                 enable_pppoe: false
-                used_for_oam: true
 #             lan_segment:
 #               # ##### DATA VLAN 
 #               - lan_segment_type: direct
@@ -299,8 +292,8 @@ input:
         ha_info:
           ha_topology: STANDALONE
         device:
-#           - device_family: juniper-srx
-          - device_name: "{{ site_name }}"
+          - device_family: juniper-srx
+            device_name: "{{ site_name }}"
             device_template: "{{ config.cpe.template_name }}"
             device_details:
               auto_activate: true
@@ -310,16 +303,8 @@ input:
               auth_protocol: PAP
             wan_link:
               - wan_link_name: "{{ config.cpe.wan_link.primary.name }}"
-                wan_link_type: Internet
-                overlay_tunnel:
-                  - peer_info:
-                      interface_name: "{{ config.cpe.wan_link.primary.name }}"
-                      internet_gw_ip: "{{ config.hub_sites.primary.gw_ip }}"
-                      peer_device: "{{ config.hub_sites.primary.name }}"
-                    tunnel_type: "{{ config.cpe.overlay.tunnel_type }}"
-                    tunnel_id: 0
-                    tunnel_endpoint_role: spoke
-                    vpn_name: null
+                wan_link_type: MPLS
+                local_interface: "{{ config.cpe.wan_link.primary.name }}"
                 mesh_overlay_link_type: "{{ config.cpe.overlay.tunnel_type }}"
 #                 connect_to_hubs: true
                 used_for_oam: true
@@ -334,6 +319,8 @@ input:
                 traffic_type: DATA_ONLY
                 backup_link: false
                 default_link: false
+                vpn_name: 
+                  - "{{ config.vpn_name.primary }}"
 #                 vpn:
 #                   - vpn_name: "{{ data_vrf }}"
 #                   - vpn_name: "{{ voice_vrf }}"
@@ -341,29 +328,26 @@ input:
 #                   - vpn_name: "{{ pci_vrf }}"
               - wan_link_name: "{{ config.cpe.wan_link.secondary.name }}"
                 wan_link_type: Internet
-                overlay_tunnel:
-                  - peer_info:
-                      interface_name: "{{ config.cpe.wan_link.secondary.name }}"
-                      internet_gw_ip: "{{ config.hub_sites.secondary.gw_ip }}"
-                      peer_device: "{{ config.hub_sites.secondary.name }}"
-                    tunnel_type: "{{ config.cpe.overlay.tunnel_type }}"
-                    tunnel_id: 1
-                    tunnel_endpoint_role: spoke
-                    vpn_name: null
+                local_interface: "{{ config.cpe.wan_link.secondary.name }}"
                 mesh_overlay_link_type: "{{ config.cpe.overlay.tunnel_type }}"
 #                 connect_to_hubs: true
                 used_for_oam: true
                 local_interface: "{{ config.cpe.wan_link.secondary.local_interface }}"
                 access_type: "{{ config.cpe.wan_link.secondary.access_type }}"
                 address_assignment: DHCP
-                preferred_breakout_link: false
+                local_breakout_enabled: true
+                nat_info: 
+                  nat_enabled: true
+                  source_nat_interface_based: true
                 bgp_authentication_mode: NONE
                 used_for_meshing: true
                 mesh_tag:
                   - "{{ config.cpe.wan_link.secondary.mesh_tag }}"
                 traffic_type: DATA_ONLY
                 backup_link: false
-                default_link: false 
+                default_link: false
+                vpn_name: 
+                  - "{{ config.vpn_name.primary }}"
             oam_traffic: {}
             device_role: SDWAN
 #           - device_family: juniper-ex
@@ -376,9 +360,14 @@ input:
 #             device_name: "{{ switch_device_name }}"
 #             device_template: "{{ config.switch.template_name }}"
 #             device_role: "{{ config.switch.device_role }}"
-        hub_sites:
-          - hub_role: PRIMARY
-            hub_name: "{{ config.hub_sites.primary.name }}"
-          - hub_role: SECONDARY
-            hub_name: "{{ config.hub_sites.secondary.name }}"
-        region: regional
+        gateway_sites: 
+          - gateway_role: "PRIMARY_GW"
+            gateway_name: "{{ config.gateway_sites.primary }}"
+          - gateway_role: "SECONDARY_GW"
+            gateway_name: "{{ config.gateway_sites.secondary }}"
+#         hub_sites:
+#           - hub_role: PRIMARY
+#             hub_name: "{{ config.hub_sites.primary.name }}"
+#           - hub_role: SECONDARY
+#             hub_name: "{{ config.hub_sites.secondary.name }}"
+#         region: regional
