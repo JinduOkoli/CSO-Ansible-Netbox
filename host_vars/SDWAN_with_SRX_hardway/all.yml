@@ -366,16 +366,16 @@ input:
                 default_link: false 
             oam_traffic: {}
             device_role: SDWAN
-          - device_family: juniper-ex
-            device_details:
-              device_model: "{{ switch_device_platform }}"
-              boot_image: ''
-              auto_activate: true
-              serial_number:
-                - "{{ serial_switch }}"
-            device_name: "{{ switch_device_name }}"
-            device_template: "{{ config.switch.template_name }}"
-            device_role: "{{ config.switch.device_role }}"
+#           - device_family: juniper-ex
+#             device_details:
+#               device_model: "{{ switch_device_platform }}"
+#               boot_image: ''
+#               auto_activate: true
+#               serial_number:
+#                 - "{{ serial_switch }}"
+#             device_name: "{{ switch_device_name }}"
+#             device_template: "{{ config.switch.template_name }}"
+#             device_role: "{{ config.switch.device_role }}"
         hub_sites:
           - hub_role: PRIMARY
             hub_name: "{{ config.hub_sites.primary.name }}"
