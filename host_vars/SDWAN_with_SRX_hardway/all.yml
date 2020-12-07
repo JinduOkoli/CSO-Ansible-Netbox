@@ -78,20 +78,25 @@ input:
 #           lan_ports:
 #             - "{{ config.cpe.lan_ports }}"
         site_group: []
-        site_address:
-          country: "{{ site_address_country }}"
-          street: "{{ site_address_street }}"
-          city: "{{ site_address_city }}"
-          zip_code: "{{ site_address_zip }}"
-          state: "{{ site_address_state }}"
+########################################################################
+#         site_address:
+#           country: "{{ site_address_country }}"
+#           street: "{{ site_address_street }}"
+#           city: "{{ site_address_city }}"
+#           zip_code: "{{ site_address_zip }}"
+#           state: "{{ site_address_state }}"
+########################################################################
         dvpn_params:
           create_dvpn_threshold: '5'
           delete_dvpn_threshold: '2'
         site_name: "{{ cleaned_site_name }}"
-        site_contact:
-          contact_name: "{{ site_contact_contact_name }}"
-          email_address: "{{ site_contact_email_address }}"
-          phone_number: "{{ site_contact_phone_number }}"
+        
+########################################################################
+#         site_contact:
+#           contact_name: "{{ site_contact_contact_name }}"
+#           email_address: "{{ site_contact_email_address }}"
+#           phone_number: "{{ site_contact_phone_number }}"
+########################################################################
         site_role: spoke
         gateway_sites: 
           - gateway_role: "PRIMARY_GW"
