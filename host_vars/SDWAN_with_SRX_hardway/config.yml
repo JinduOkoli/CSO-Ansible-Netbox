@@ -11,24 +11,32 @@ config:
       primary:
         local_interface: "ge-0/0/0"
         name: WAN_0
+        wan_link_type: MPLS
+        access_type: Ethernet
+        provider: ISP1
+        cost: 800
+        mesh_tag: MPLS
+      secondary:
+        local_interface: "ge-0/0/1"
+        name: WAN_1
         wan_link_type: Internet
         access_type: Ethernet
-        provider: Comcast
+        provider: ISP2
         cost: 800
         mesh_tag: INTERNET
     overlay:
       tunnel_type: GRE_IPSEC
-    vpn_name:
-      primary: "{{ tenant_name }}_DefaultVPN"
-    trunk_ports_1: "ge-0/0/1"
-    trunk_ports_2: "ge-0/0/2"
-    template_name: "{{ tenant_name }}/calvin_spoke_srx"
-  switch:
-    template_name: "EX_Single_ZTP"
-    device_role: "LAN_DEVICE_EX"
+    vpn_name: null
+#       primary: "{{ tenant_name }}_DefaultVPN"
+#     trunk_ports_1: "ge-0/0/1"
+#     trunk_ports_2: "ge-0/0/2"
+    template_name: "{{ tenant_name }}/POC_Spoke_SRX"
+#   switch:
+#     template_name: "EX_Single_ZTP"
+#     device_role: "LAN_DEVICE_EX"
   site_deployment_capabilities:
     primary: SDWAN
-    secondary: LAN_DEVICE_EX
+#     secondary: LAN_DEVICE_EX
   ntpserver: "216.239.35.4"
   timezone: "America/Chicago"
   hub_sites:
