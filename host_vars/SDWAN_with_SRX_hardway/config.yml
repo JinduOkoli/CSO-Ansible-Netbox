@@ -39,6 +39,9 @@ config:
 #     secondary: LAN_DEVICE_EX
   ntpserver: "216.239.35.4"
   timezone: "America/Chicago"
+  gateway_sites:
+    primary: ent-dc1
+    secondary: ent-dc2
   hub_sites:
     primary: 
       name: JNPR-US-E-HUB-1
