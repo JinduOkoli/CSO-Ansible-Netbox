@@ -5,78 +5,78 @@ input:
   site:
     - site_name: "{{ cleaned_site_name }}"
       site_basic_properties:
-        # ##### DATA VLAN 
-        '0':
-          lan_segment_type: direct
-          vlan: "{{ data_vlan }}"
-          dhcp: true
-          additional_config:
-            dhcp:
-              max_lease_time: 86400
-              range_low: "{{ data_dhcp_low }}"
-              range_high: "{{ data_dhcp_high }}"
-              name_server:
-                - "{{ config.dhcp.name_server.primary }}"
-              subnet: "{{ data_prefix }}"
-          department: "{{ data_vrf }}"
-          lan_segment_name: "{{ data_vrf }}"
-          ip_prefix: "{{ data_prefix }}"
-          lan_ports:
-            - "{{ config.cpe.lan_ports }}"
-        # ##### VOICE VLAN ### #
-        '1':
-          lan_segment_type: direct
-          vlan: "{{ voice_vlan }}"
-          dhcp: true
-          additional_config:
-            dhcp:
-              max_lease_time: 86400
-              range_low: "{{ voice_dhcp_low	 }}"
-              range_high: "{{ voice_dhcp_high }}"
-              name_server:
-                - "{{ config.dhcp.name_server.primary }}"
-              subnet: "{{ voice_prefix }}"
-          department: "{{ voice_vrf }}"
-          lan_segment_name: "{{ voice_vrf }}"
-          ip_prefix: "{{ voice_prefix }}"
-          lan_ports:
-            - "{{ config.cpe.lan_ports }}"
-        # ##### IOT VLAN 
-        '2':
-          lan_segment_type: direct
-          vlan: "{{ iot_vlan }}"
-          dhcp: true
-          additional_config:
-            dhcp:
-              max_lease_time: 86400
-              range_low: "{{ iot_dhcp_low }}"
-              range_high: "{{ iot_dhcp_high }}"
-              name_server:
-                - "{{ config.dhcp.name_server.primary }}"
-              subnet: "{{ iot_prefix }}"
-          department: "{{ iot_vrf }}"
-          lan_segment_name: "{{ iot_vrf }}"
-          ip_prefix: "{{ iot_prefix }}"
-          lan_ports:
-            - "{{ config.cpe.lan_ports }}"
-        # ##### PCI VLAN  #### #
-        '3':
-          lan_segment_type: direct
-          vlan: "{{ pci_vlan }}"
-          dhcp: true
-          additional_config:
-            dhcp:
-              max_lease_time: 86400
-              range_low: "{{ pci_dhcp_low }}"
-              range_high: "{{ pci_dhcp_high }}"
-              name_server:
-                - "{{ config.dhcp.name_server.primary }}"
-              subnet: "{{ pci_prefix }}"
-          department: "{{ pci_vrf }}"
-          lan_segment_name: "{{ pci_vrf }}"
-          ip_prefix: "{{ pci_prefix }}"
-          lan_ports:
-            - "{{ config.cpe.lan_ports }}"
+#         # ##### DATA VLAN 
+#         '0':
+#           lan_segment_type: direct
+#           vlan: "{{ data_vlan }}"
+#           dhcp: true
+#           additional_config:
+#             dhcp:
+#               max_lease_time: 86400
+#               range_low: "{{ data_dhcp_low }}"
+#               range_high: "{{ data_dhcp_high }}"
+#               name_server:
+#                 - "{{ config.dhcp.name_server.primary }}"
+#               subnet: "{{ data_prefix }}"
+#           department: "{{ data_vrf }}"
+#           lan_segment_name: "{{ data_vrf }}"
+#           ip_prefix: "{{ data_prefix }}"
+#           lan_ports:
+#             - "{{ config.cpe.lan_ports }}"
+#         # ##### VOICE VLAN ### #
+#         '1':
+#           lan_segment_type: direct
+#           vlan: "{{ voice_vlan }}"
+#           dhcp: true
+#           additional_config:
+#             dhcp:
+#               max_lease_time: 86400
+#               range_low: "{{ voice_dhcp_low	 }}"
+#               range_high: "{{ voice_dhcp_high }}"
+#               name_server:
+#                 - "{{ config.dhcp.name_server.primary }}"
+#               subnet: "{{ voice_prefix }}"
+#           department: "{{ voice_vrf }}"
+#           lan_segment_name: "{{ voice_vrf }}"
+#           ip_prefix: "{{ voice_prefix }}"
+#           lan_ports:
+#             - "{{ config.cpe.lan_ports }}"
+#         # ##### IOT VLAN 
+#         '2':
+#           lan_segment_type: direct
+#           vlan: "{{ iot_vlan }}"
+#           dhcp: true
+#           additional_config:
+#             dhcp:
+#               max_lease_time: 86400
+#               range_low: "{{ iot_dhcp_low }}"
+#               range_high: "{{ iot_dhcp_high }}"
+#               name_server:
+#                 - "{{ config.dhcp.name_server.primary }}"
+#               subnet: "{{ iot_prefix }}"
+#           department: "{{ iot_vrf }}"
+#           lan_segment_name: "{{ iot_vrf }}"
+#           ip_prefix: "{{ iot_prefix }}"
+#           lan_ports:
+#             - "{{ config.cpe.lan_ports }}"
+#         # ##### PCI VLAN  #### #
+#         '3':
+#           lan_segment_type: direct
+#           vlan: "{{ pci_vlan }}"
+#           dhcp: true
+#           additional_config:
+#             dhcp:
+#               max_lease_time: 86400
+#               range_low: "{{ pci_dhcp_low }}"
+#               range_high: "{{ pci_dhcp_high }}"
+#               name_server:
+#                 - "{{ config.dhcp.name_server.primary }}"
+#               subnet: "{{ pci_prefix }}"
+#           department: "{{ pci_vrf }}"
+#           lan_segment_name: "{{ pci_vrf }}"
+#           ip_prefix: "{{ pci_prefix }}"
+#           lan_ports:
+#             - "{{ config.cpe.lan_ports }}"
         site_group: []
         site_address:
           country: "{{ site_address_country }}"
@@ -92,7 +92,12 @@ input:
           contact_name: "{{ site_contact_contact_name }}"
           email_address: "{{ site_contact_email_address }}"
           phone_number: "{{ site_contact_phone_number }}"
-        site_role: SPOKE
+        site_role: spoke
+        gateway_sites: 
+          - gateway_role: "PRIMARY_GW"
+            gateway_name: "{{ config.gateway_sites.primary }}"
+          - gateway_role: "SECONDARY_GW"
+            gateway_name": "{{ config.gateway_sites.secondary_hub }}"
         network_seg: true
         cloud_service: EDGE
         site_type: on_premise
@@ -103,7 +108,7 @@ input:
             device_name: "{{ cleaned_site_name }}"
             wan_link_info:
               - wan_link: "{{ config.cpe.wan_link.primary.name }}"
-                wan_link_type: Internet
+                wan_link_type: MPLS
                 cost_currency: USD
                 access_type: "{{ config.cpe.wan_link.primary.access_type }}"
                 local_breakout_enabled: false
@@ -114,153 +119,167 @@ input:
                 preferred_breakout_link: false
                 subscribed_bandwidth: 1000
                 enable_pppoe: false
-            lan_segment:
-              # ##### DATA VLAN 
-              - lan_segment_type: direct
-                vlan: "{{ data_vlan }}"
-                dhcp: true
-                additional_config:
-                  dhcp:
-                    max_lease_time: 86400
-                    range_low: "{{ data_dhcp_low }}"
-                    range_high: "{{ data_dhcp_high }}"
-                    name_server:
-                      - "{{ config.dhcp.name_server.primary }}"
-                    subnet: "{{ data_prefix }}"
-                department: "{{ data_vrf }}"
-                lan_segment_name: "{{ data_vrf }}"
-                ip_prefix: "{{ data_prefix }}"
-                lan_ports:
-                  - "{{ config.cpe.lan_ports }}"
-              # ##### VOICE VLAN 
-              - lan_segment_type: direct
-                vlan: "{{ voice_vlan }}"
-                dhcp: true
-                additional_config:
-                  dhcp:
-                    max_lease_time: 86400
-                    range_low: "{{ voice_dhcp_low	 }}"
-                    range_high: "{{ voice_dhcp_high }}"
-                    name_server:
-                      - "{{ config.dhcp.name_server.primary }}"
-                    subnet: "{{ voice_prefix }}"
-                department: "{{ voice_vrf }}"
-                lan_segment_name: "{{ voice_vrf }}"
-                ip_prefix: "{{ voice_prefix }}"
-                lan_ports:
-                  - "{{ config.cpe.lan_ports }}"
-              # ##### IOT VLAN 
-              - lan_segment_type: direct
-                vlan: "{{ iot_vlan }}"
-                dhcp: true
-                additional_config:
-                  dhcp:
-                    max_lease_time: 86400
-                    range_low: "{{ iot_dhcp_low }}"
-                    range_high: "{{ iot_dhcp_high }}"
-                    name_server:
-                      - "{{ config.dhcp.name_server.primary }}"
-                    subnet: "{{ iot_prefix }}"
-                department: "{{ iot_vrf }}"
-                lan_segment_name: "{{ iot_vrf }}"
-                ip_prefix: "{{ iot_prefix }}"
-                lan_ports:
-                  - "{{ config.cpe.lan_ports }}"
-              # ##### PCI VLAN 
-              - lan_segment_type: direct
-                vlan: "{{ pci_vlan }}"
-                dhcp: true
-                additional_config:
-                  dhcp:
-                    max_lease_time: 86400
-                    range_low: "{{ pci_dhcp_low }}"
-                    range_high: "{{ pci_dhcp_high }}"
-                    name_server:
-                      - "{{ config.dhcp.name_server.primary }}"
-                    subnet: "{{ pci_prefix }}"
-                department: "{{ pci_vrf }}"
-                lan_segment_name: "{{ pci_vrf }}"
-                ip_prefix: "{{ pci_prefix }}"
-                lan_ports:
-                  - "{{ config.cpe.lan_ports }}"
-          - template_name: "{{ config.switch.template_name }}"
-            device_name: "{{ switch_device_name }}"
-            redundancy_type: NONE
-            ex_behind_cpe:
-              in_band: true
-              cpe_trunk_ports:
-                - "{{ config.cpe.trunk_ports_1 }}"
-                - "{{ config.cpe.trunk_ports_2 }}"
-              cpe_dhcp_resource_pool: "{{ mgmt_prefix }}"
-              cpe_device_name: "{{ cleaned_site_name }}"
-            lan_segment:
-              # ##### DATA VLAN 
-              - lan_segment_type: direct
-                vlan: "{{ data_vlan }}"
-                dhcp: true
-                additional_config:
-                  dhcp:
-                    max_lease_time: 86400
-                    range_low: "{{ data_dhcp_low }}"
-                    range_high: "{{ data_dhcp_high }}"
-                    name_server:
-                      - "{{ config.dhcp.name_server.primary }}"
-                    subnet: "{{ data_prefix }}"
-                department: "{{ data_vrf }}"
-                lan_segment_name: "{{ data_vrf }}"
-                ip_prefix: "{{ data_prefix }}"
-                interface_names: []
-              # ##### VOICE VLAN 
-              - lan_segment_type: direct
-                vlan: "{{ voice_vlan }}"
-                dhcp: true
-                additional_config:
-                  dhcp:
-                    max_lease_time: 86400
-                    range_low: "{{ voice_dhcp_low	 }}"
-                    range_high: "{{ voice_dhcp_high }}"
-                    name_server:
-                      - "{{ config.dhcp.name_server.primary }}"
-                    subnet: "{{ voice_prefix }}"
-                department: "{{ voice_vrf }}"
-                lan_segment_name: "{{ voice_vrf }}"
-                ip_prefix: "{{ voice_prefix }}"
-                interface_names: []
-              # ##### IOT VLAN 
-              - lan_segment_type: direct
-                vlan: "{{ iot_vlan }}"
-                dhcp: true
-                additional_config:
-                  dhcp:
-                    max_lease_time: 86400
-                    range_low: "{{ iot_dhcp_low }}"
-                    range_high: "{{ iot_dhcp_high }}"
-                    name_server:
-                      - "{{ config.dhcp.name_server.primary }}"
-                    subnet: "{{ iot_prefix }}"
-                department: "{{ iot_vrf }}"
-                lan_segment_name: "{{ iot_vrf }}"
-                ip_prefix: "{{ iot_prefix }}"
-                interface_names: []
-              # ##### PCI VLAN 
-              - lan_segment_type: direct
-                vlan: "{{ pci_vlan }}"
-                dhcp: true
-                additional_config:
-                  dhcp:
-                    max_lease_time: 86400
-                    range_low: "{{ pci_dhcp_low }}"
-                    range_high: "{{ pci_dhcp_high }}"
-                    name_server:
-                      - "{{ config.dhcp.name_server.primary }}"
-                    subnet: "{{ pci_prefix }}"
-                department: "{{ pci_vrf }}"
-                lan_segment_name: "{{ pci_vrf }}"
-                ip_prefix: "{{ pci_prefix }}"
-                interface_names: []
+                used_for_oam: true
+              - wan_link: "{{ config.cpe.wan_link.secondary.name }}"
+                wan_link_type: Internet
+                cost_currency: USD
+                access_type: "{{ config.cpe.wan_link.secondary.access_type }}"
+                local_breakout_enabled: true
+                provider: "{{ config.cpe.wan_link.secondary.provider }}"
+                cost: 800
+                default_link: false
+                backup_link: false
+                preferred_breakout_link: false
+                subscribed_bandwidth: 1000
+                enable_pppoe: false
+                used_for_oam: true
+#             lan_segment:
+#               # ##### DATA VLAN 
+#               - lan_segment_type: direct
+#                 vlan: "{{ data_vlan }}"
+#                 dhcp: true
+#                 additional_config:
+#                   dhcp:
+#                     max_lease_time: 86400
+#                     range_low: "{{ data_dhcp_low }}"
+#                     range_high: "{{ data_dhcp_high }}"
+#                     name_server:
+#                       - "{{ config.dhcp.name_server.primary }}"
+#                     subnet: "{{ data_prefix }}"
+#                 department: "{{ data_vrf }}"
+#                 lan_segment_name: "{{ data_vrf }}"
+#                 ip_prefix: "{{ data_prefix }}"
+#                 lan_ports:
+#                   - "{{ config.cpe.lan_ports }}"
+#               # ##### VOICE VLAN 
+#               - lan_segment_type: direct
+#                 vlan: "{{ voice_vlan }}"
+#                 dhcp: true
+#                 additional_config:
+#                   dhcp:
+#                     max_lease_time: 86400
+#                     range_low: "{{ voice_dhcp_low	 }}"
+#                     range_high: "{{ voice_dhcp_high }}"
+#                     name_server:
+#                       - "{{ config.dhcp.name_server.primary }}"
+#                     subnet: "{{ voice_prefix }}"
+#                 department: "{{ voice_vrf }}"
+#                 lan_segment_name: "{{ voice_vrf }}"
+#                 ip_prefix: "{{ voice_prefix }}"
+#                 lan_ports:
+#                   - "{{ config.cpe.lan_ports }}"
+#               # ##### IOT VLAN 
+#               - lan_segment_type: direct
+#                 vlan: "{{ iot_vlan }}"
+#                 dhcp: true
+#                 additional_config:
+#                   dhcp:
+#                     max_lease_time: 86400
+#                     range_low: "{{ iot_dhcp_low }}"
+#                     range_high: "{{ iot_dhcp_high }}"
+#                     name_server:
+#                       - "{{ config.dhcp.name_server.primary }}"
+#                     subnet: "{{ iot_prefix }}"
+#                 department: "{{ iot_vrf }}"
+#                 lan_segment_name: "{{ iot_vrf }}"
+#                 ip_prefix: "{{ iot_prefix }}"
+#                 lan_ports:
+#                   - "{{ config.cpe.lan_ports }}"
+#               # ##### PCI VLAN 
+#               - lan_segment_type: direct
+#                 vlan: "{{ pci_vlan }}"
+#                 dhcp: true
+#                 additional_config:
+#                   dhcp:
+#                     max_lease_time: 86400
+#                     range_low: "{{ pci_dhcp_low }}"
+#                     range_high: "{{ pci_dhcp_high }}"
+#                     name_server:
+#                       - "{{ config.dhcp.name_server.primary }}"
+#                     subnet: "{{ pci_prefix }}"
+#                 department: "{{ pci_vrf }}"
+#                 lan_segment_name: "{{ pci_vrf }}"
+#                 ip_prefix: "{{ pci_prefix }}"
+#                 lan_ports:
+#                   - "{{ config.cpe.lan_ports }}"
+#           - template_name: "{{ config.switch.template_name }}"
+#             device_name: "{{ switch_device_name }}"
+#             redundancy_type: NONE
+#             ex_behind_cpe:
+#               in_band: true
+#               cpe_trunk_ports:
+#                 - "{{ config.cpe.trunk_ports_1 }}"
+#                 - "{{ config.cpe.trunk_ports_2 }}"
+#               cpe_dhcp_resource_pool: "{{ mgmt_prefix }}"
+#               cpe_device_name: "{{ cleaned_site_name }}"
+#             lan_segment:
+#               # ##### DATA VLAN 
+#               - lan_segment_type: direct
+#                 vlan: "{{ data_vlan }}"
+#                 dhcp: true
+#                 additional_config:
+#                   dhcp:
+#                     max_lease_time: 86400
+#                     range_low: "{{ data_dhcp_low }}"
+#                     range_high: "{{ data_dhcp_high }}"
+#                     name_server:
+#                       - "{{ config.dhcp.name_server.primary }}"
+#                     subnet: "{{ data_prefix }}"
+#                 department: "{{ data_vrf }}"
+#                 lan_segment_name: "{{ data_vrf }}"
+#                 ip_prefix: "{{ data_prefix }}"
+#                 interface_names: []
+#               # ##### VOICE VLAN 
+#               - lan_segment_type: direct
+#                 vlan: "{{ voice_vlan }}"
+#                 dhcp: true
+#                 additional_config:
+#                   dhcp:
+#                     max_lease_time: 86400
+#                     range_low: "{{ voice_dhcp_low	 }}"
+#                     range_high: "{{ voice_dhcp_high }}"
+#                     name_server:
+#                       - "{{ config.dhcp.name_server.primary }}"
+#                     subnet: "{{ voice_prefix }}"
+#                 department: "{{ voice_vrf }}"
+#                 lan_segment_name: "{{ voice_vrf }}"
+#                 ip_prefix: "{{ voice_prefix }}"
+#                 interface_names: []
+#               # ##### IOT VLAN 
+#               - lan_segment_type: direct
+#                 vlan: "{{ iot_vlan }}"
+#                 dhcp: true
+#                 additional_config:
+#                   dhcp:
+#                     max_lease_time: 86400
+#                     range_low: "{{ iot_dhcp_low }}"
+#                     range_high: "{{ iot_dhcp_high }}"
+#                     name_server:
+#                       - "{{ config.dhcp.name_server.primary }}"
+#                     subnet: "{{ iot_prefix }}"
+#                 department: "{{ iot_vrf }}"
+#                 lan_segment_name: "{{ iot_vrf }}"
+#                 ip_prefix: "{{ iot_prefix }}"
+#                 interface_names: []
+#               # ##### PCI VLAN 
+#               - lan_segment_type: direct
+#                 vlan: "{{ pci_vlan }}"
+#                 dhcp: true
+#                 additional_config:
+#                   dhcp:
+#                     max_lease_time: 86400
+#                     range_low: "{{ pci_dhcp_low }}"
+#                     range_high: "{{ pci_dhcp_high }}"
+#                     name_server:
+#                       - "{{ config.dhcp.name_server.primary }}"
+#                     subnet: "{{ pci_prefix }}"
+#                 department: "{{ pci_vrf }}"
+#                 lan_segment_name: "{{ pci_vrf }}"
+#                 ip_prefix: "{{ pci_prefix }}"
+#                 interface_names: []
         site_deployment_capabilities:
           - "{{ config.site_deployment_capabilities.primary }}"
-          - "{{ config.site_deployment_capabilities.secondary }}"
+#           - "{{ config.site_deployment_capabilities.secondary }}"
       properties:
         property:
           - name: site_advanced_config
@@ -294,17 +313,10 @@ input:
                       peer_device: "{{ config.hub_sites.primary.name }}"
                     tunnel_type: "{{ config.cpe.overlay.tunnel_type }}"
                     tunnel_id: 0
-                    tunnel_endpoint_role: SPOKE
-                  - peer_info:
-                      interface_name: "{{ config.cpe.wan_link.primary.name }}"
-                      internet_gw_ip: "{{ config.hub_sites.secondary.gw_ip }}"
-                      peer_device: "{{ config.hub_sites.secondary.name }}"
-                    tunnel_type: "{{ config.cpe.overlay.tunnel_type }}"
-                    tunnel_id: 1
-                    tunnel_endpoint_role: SPOKE
-                    vpn_name: "{{ config.cpe.vpn_name.primary }}"
+                    tunnel_endpoint_role: spoke
+                    vpn_name: null
                 mesh_overlay_link_type: "{{ config.cpe.overlay.tunnel_type }}"
-                connect_to_hubs: true
+#                 connect_to_hubs: true
                 used_for_oam: true
                 local_interface: "{{ config.cpe.wan_link.primary.local_interface }}"
                 access_type: "{{ config.cpe.wan_link.primary.access_type }}"
@@ -317,11 +329,36 @@ input:
                 traffic_type: DATA_ONLY
                 backup_link: false
                 default_link: false
-                vpn:
-                  - vpn_name: "{{ data_vrf }}"
-                  - vpn_name: "{{ voice_vrf }}"
-                  - vpn_name: "{{ iot_vrf }}"
-                  - vpn_name: "{{ pci_vrf }}"
+#                 vpn:
+#                   - vpn_name: "{{ data_vrf }}"
+#                   - vpn_name: "{{ voice_vrf }}"
+#                   - vpn_name: "{{ iot_vrf }}"
+#                   - vpn_name: "{{ pci_vrf }}"
+              - wan_link_name: "{{ config.cpe.wan_link.secondary.name }}"
+                wan_link_type: Internet
+                overlay_tunnel:
+                  - peer_info:
+                      interface_name: "{{ config.cpe.wan_link.secondary.name }}"
+                      internet_gw_ip: "{{ config.hub_sites.secondary.gw_ip }}"
+                      peer_device: "{{ config.hub_sites.secondary.name }}"
+                    tunnel_type: "{{ config.cpe.overlay.tunnel_type }}"
+                    tunnel_id: 1
+                    tunnel_endpoint_role: spoke
+                    vpn_name: null
+                mesh_overlay_link_type: "{{ config.cpe.overlay.tunnel_type }}"
+#                 connect_to_hubs: true
+                used_for_oam: true
+                local_interface: "{{ config.cpe.wan_link.secondary.local_interface }}"
+                access_type: "{{ config.cpe.wan_link.secondary.access_type }}"
+                address_assignment: DHCP
+                preferred_breakout_link: false
+                bgp_authentication_mode: NONE
+                used_for_meshing: true
+                mesh_tag:
+                  - "{{ config.cpe.wan_link.secondary.mesh_tag }}"
+                traffic_type: DATA_ONLY
+                backup_link: false
+                default_link: false 
             oam_traffic: {}
             device_role: SDWAN
           - device_family: juniper-ex
