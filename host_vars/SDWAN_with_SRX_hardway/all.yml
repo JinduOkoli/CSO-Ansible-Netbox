@@ -299,8 +299,8 @@ input:
         ha_info:
           ha_topology: STANDALONE
         device:
-          - device_family: juniper-srx
-            device_name: "{{ site_name }}"
+#           - device_family: juniper-srx
+          - device_name: "{{ site_name }}"
             device_template: "{{ config.cpe.template_name }}"
             device_details:
               auto_activate: true
