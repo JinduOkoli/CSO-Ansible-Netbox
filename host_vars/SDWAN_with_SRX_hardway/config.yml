@@ -26,8 +26,8 @@ config:
         mesh_tag: INTERNET
     overlay:
       tunnel_type: GRE_IPSEC
-    vpn_name: null
-#       primary: "{{ tenant_name }}_DefaultVPN"
+    vpn_name: 
+      primary: "{{ tenant_name }}_DefaultVPN"
 #     trunk_ports_1: "ge-0/0/1"
 #     trunk_ports_2: "ge-0/0/2"
     template_name: "HerndonPOC/POC_Spoke_SRX"
