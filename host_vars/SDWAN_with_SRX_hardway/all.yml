@@ -97,7 +97,7 @@ input:
           - gateway_role: "PRIMARY_GW"
             gateway_name: "{{ config.gateway_sites.primary }}"
           - gateway_role: "SECONDARY_GW"
-            gateway_name": "{{ config.gateway_sites.secondary_hub }}"
+            gateway_name: "{{ config.gateway_sites.secondary }}"
         network_seg: true
         cloud_service: EDGE
         site_type: on_premise
