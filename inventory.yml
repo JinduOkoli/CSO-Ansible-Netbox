@@ -1,11 +1,8 @@
 ---
 all:
-    vars:
-        backup_directory: ./backup/{{ inventory_hostname }}
-        ansible_python_interpreter: "{{ ansible_playbook_python }}"
-        
-    vars_files:
-      - group_vars/all/secrets.yml
+    #vars:
+    #    backup_directory: ./backup/{{ inventory_hostname }}
+    #    ansible_python_interpreter: "{{ ansible_playbook_python }}"
     hosts:
         SDWAN_with_SRX:
         SDWAN_with_vSRX:
