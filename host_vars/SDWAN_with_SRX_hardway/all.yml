@@ -78,6 +78,8 @@ input:
 #           lan_ports:
 #             - "{{ config.cpe.lan_ports }}"
         site_group: []
+        site_type: on_premise
+        cloud_service: EDGE
 ########################################################################
 #         site_address:
 #           country: "{{ site_address_country }}"
@@ -99,8 +101,6 @@ input:
 ########################################################################
         site_role: SPOKE
         network_seg: true
-        cloud_service: EDGE
-        site_type: on_premise
         topology: mesh
         sla_mgmt: FINE
         device_template:
@@ -116,7 +116,6 @@ input:
                 cost: 800
                 default_link: false
                 backup_link: false
-                preferred_breakout_link: false
                 subscribed_bandwidth: 1000
                 enable_pppoe: false
               - wan_link: "{{ config.cpe.wan_link.secondary.name }}"
@@ -124,11 +123,10 @@ input:
                 cost_currency: USD
                 access_type: "{{ config.cpe.wan_link.secondary.access_type }}"
                 local_breakout_enabled: true
-                provider: "{{ config.cpe.wan_link.secondary.provider }}"
+                provider: "{{ config.cpe.wan_link.primary.provider }}"
                 cost: 800
                 default_link: false
                 backup_link: false
-                preferred_breakout_link: false
                 subscribed_bandwidth: 1000
                 enable_pppoe: false
 #             lan_segment:
@@ -310,7 +308,6 @@ input:
                 local_interface: "{{ config.cpe.wan_link.primary.local_interface }}"
                 access_type: "{{ config.cpe.wan_link.primary.access_type }}"
                 address_assignment: DHCP
-                preferred_breakout_link: false
                 bgp_authentication_mode: NONE
                 used_for_meshing: true
                 mesh_tag:
@@ -368,4 +365,4 @@ input:
 #             hub_name: "{{ config.hub_sites.primary.name }}"
 #           - hub_role: SECONDARY
 #             hub_name: "{{ config.hub_sites.secondary.name }}"
-#         region: regional
+        region: regional
