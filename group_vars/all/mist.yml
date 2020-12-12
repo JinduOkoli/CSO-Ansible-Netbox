@@ -4,5 +4,5 @@ mist:
   timezone: "America/Chicago"
   lat: "29.78266"
   long: "-95.637837"
-  address: "{{ site_data.street_address }}, {{ site_data.city }}, {{ site_data.state }}, {{ site_data.country }}"
-  country_code: "{{ site_data.country }}"
+#   address: "{{ site_data.street_address }}, {{ site_data.city }}, {{ site_data.state }}, {{ site_data.country }}"
+  country_code: "United States"
