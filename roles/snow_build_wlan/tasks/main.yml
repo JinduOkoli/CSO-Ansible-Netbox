@@ -19,7 +19,7 @@
     status_code: "200"
     headers:
       Content-Type: "application/json"
-      Authorization: "Token {{ mist_api_token }}"
+      Authorization: "Token {{ mist.apitoken }}"
     body: "{{ lookup('file','/var/tmp/snow_build_wlan.json') }}"
     force_basic_auth: yes
     body_format: json
